@@ -86,23 +86,112 @@ __webpack_require__(2);
 "use strict";
 
 
-function test() {
-	/*for (let i = 1; i < 3; i++) {
- 	console.log(i)
- }
- console.log(i)*/
+{
+	var test = function test(a) {
+		var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'haha';
+		var c = arguments[2];
 
-	//let a = 1
-	var a = 2;
-}
-//test()
+		console.log(a, b, c);
+	};
 
-function last() {
-	var PI = 3.1415;
-	// PI = 8
-	console.log(PI);
+	test('hehe'); //  hehe haha undefined
 }
-last();
+
+{
+	var test2 = function test2(x) {
+		var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : x;
+
+		console.log(x, y);
+	};
+
+	var x = 'haha';
+
+	test2(); // undefined undefined
+	test2('uu'); // uu uu
+}
+
+{
+	var _test = function _test(c) {
+		var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _x3;
+
+		console.log(c, y);
+	};
+
+	var _x3 = 'haha';
+
+	_test(); //  undefined "haha"
+	_test('uu'); //  uu haha
+}
+
+{
+	var _test2 = function _test2() {
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		var _iteratorNormalCompletion = true;
+		var _didIteratorError = false;
+		var _iteratorError = undefined;
+
+		try {
+			for (var _iterator = args[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+				var value = _step.value;
+
+				console.log(value);
+			}
+		} catch (err) {
+			_didIteratorError = true;
+			_iteratorError = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion && _iterator.return) {
+					_iterator.return();
+				}
+			} finally {
+				if (_didIteratorError) {
+					throw _iteratorError;
+				}
+			}
+		}
+	};
+
+	_test2('a', 'b', 'c');
+}
+
+{
+	var _test3 = function _test3() {
+		console.log(arguments);
+		var arr = Array.from(arguments);
+		console.log(arr);
+	};
+
+	_test3('a', 'b');
+}
+
+{
+	var _console;
+
+	(_console = console).log.apply(_console, ['y'].concat([1, 2, 4])); //  y 1 2 4
+}
+
+{
+	var arrow = function arrow(v) {
+		return v * 2;
+	};
+	console.log(arrow(7));
+}
+
+{
+	var tail = function tail(x) {
+		console.log('tail', x);
+	};
+
+	var fx = function fx(x) {
+		return tail(x);
+	};
+
+	fx(897);
+}
 
 /***/ })
 /******/ ]);

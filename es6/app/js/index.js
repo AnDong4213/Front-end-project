@@ -8,5 +8,5 @@ let test = new Test()
 document.body.innerHTML = test.a*/
 
 
-import './class/lesson1.js'
+import './class/lesson7.js'
 
