@@ -45,11 +45,9 @@
 }
 
 {
-	
 	for (let [index,value] of ['he', 'c', 'ha'].entries()) {
 		console.log(index,value)
 	}
-	
 }
 
 {
@@ -71,7 +69,9 @@
 	  return data
 	}
 	let haha = {b: 'bb'}, hehe = getMusicList('zhuruixin')
-	console.log(Object.assign({},haha,hehe))   // {b: "bb", url: "https", topid: "zhuruixin", type: "top", platform: "h5"}
+	let obj = Object.assign({},haha,hehe)
+	console.log(obj)   // {b: "bb", url: "https", topid: "zhuruixin", type: "top", platform: "h5"}
+	console.log(obj.topid)  // zhuruixin
 }
 
 

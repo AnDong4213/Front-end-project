@@ -86,130 +86,135 @@ __webpack_require__(2);
 "use strict";
 
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-{
-	var o = 1,
-	    k = 2;
-	var es5 = {
-		o: o,
-		k: k
-	};
-	var es6 = { o: o, k: k };
-	console.log(es5, es6);
-	console.log(es5 == es6); // false
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 {
-	// 属性表达式...
-	var a = 'b';
-	var es5_obj = {
-		a: 'hh',
-		b: 'kk'
-	};
-	var es6_obj = _defineProperty({}, a, 'tt');
-	console.log(es5_obj, es6_obj); // {a: "hh", b: "kk"}  {b: "tt"}
-}
+	var Parent = function Parent() {
+		var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
 
-{
-	// 新增API
-	console.log(Object.is('abc', 'abc'), 'abc' === 'abc'); // true true  // Object.is()和三个等号意思一样...
-	console.log(Object.is([], []), [] === []); // false false  数组是引用类型，引用地址不一样...
-}
+		_classCallCheck(this, Parent);
 
-{
-	var _a = { a: 'a' },
-	    b = { b: 'b' };
-	console.log(Object.assign(_a, b)); // {a: "a", b: "b"}   // 浅拷贝...
-	console.log(_a); // {a: "a", b: "b"}
-	console.log(b); // {b: "b"}  
-}
-
-{
-	var _a2 = { a: 'a' },
-	    _b = { b: 'b' };
-	console.log(Object.assign({}, _a2, _b));
-	console.log(_a2); // {a: "a"}
-	console.log(_b); //  {b: "b"}  
-}
-
-{
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-
-	try {
-
-		for (var _iterator = ['he', 'c', 'ha'].entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-			var _step$value = _slicedToArray(_step.value, 2),
-			    index = _step$value[0],
-			    value = _step$value[1];
-
-			console.log(index, value);
-		}
-	} catch (err) {
-		_didIteratorError = true;
-		_iteratorError = err;
-	} finally {
-		try {
-			if (!_iteratorNormalCompletion && _iterator.return) {
-				_iterator.return();
-			}
-		} finally {
-			if (_didIteratorError) {
-				throw _iteratorError;
-			}
-		}
-	}
-}
-
-{
-	var aa = { k: 123, o: 456 };
-	var _iteratorNormalCompletion2 = true;
-	var _didIteratorError2 = false;
-	var _iteratorError2 = undefined;
-
-	try {
-		for (var _iterator2 = Object.entries(aa)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-			var _step2$value = _slicedToArray(_step2.value, 2),
-			    key = _step2$value[0],
-			    value = _step2$value[1];
-
-			console.log(key, value);
-		}
-	} catch (err) {
-		_didIteratorError2 = true;
-		_iteratorError2 = err;
-	} finally {
-		try {
-			if (!_iteratorNormalCompletion2 && _iterator2.return) {
-				_iterator2.return();
-			}
-		} finally {
-			if (_didIteratorError2) {
-				throw _iteratorError2;
-			}
-		}
-	}
-}
-
-{
-	var getMusicList = function getMusicList(topid) {
-		var aa = { url: 'https' };
-		var data = Object.assign({}, aa, {
-			topid: topid,
-			type: 'top',
-			platform: 'h5'
-		});
-
-		return data;
+		this.name = name;
 	};
 
-	var haha = { b: 'bb' },
-	    hehe = getMusicList('zhuruixin');
-	console.log(Object.assign({}, haha, hehe)); // {b: "bb", url: "https", topid: "zhuruixin", type: "top", platform: "h5"}
+	var v_child = new Parent('andong');
+	console.log(v_child.name); //  andong
+}
+
+{
+	var _Parent = function () {
+		function _Parent() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+
+			_classCallCheck(this, _Parent);
+
+			this.name = name;
+		}
+
+		_createClass(_Parent, [{
+			key: 'hehe',
+			value: function hehe() {
+				console.log('pp');
+			}
+		}]);
+
+		return _Parent;
+	}();
+
+	var Child = function (_Parent2) {
+		_inherits(Child, _Parent2);
+
+		function Child() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'KK';
+			var type = arguments[1];
+
+			_classCallCheck(this, Child);
+
+			var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
+
+			_this.type = type;
+			return _this;
+		}
+
+		_createClass(Child, [{
+			key: 'yy',
+			value: function yy() {
+				console.log('yy');
+			}
+		}]);
+
+		return Child;
+	}(_Parent);
+
+	var child = new Child('mm', 'nn');
+	console.log(child.name);
+	console.log(child.type);
+	child.hehe();
+	child.yy();
+}
+
+{
+	// getter, setter
+	var _Parent3 = function () {
+		function _Parent3() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+
+			_classCallCheck(this, _Parent3);
+
+			this.name = name;
+		}
+
+		_createClass(_Parent3, [{
+			key: 'longName',
+			get: function get() {
+				return 'mk' + this.name;
+			},
+			set: function set(value) {
+				this.name = value;
+			}
+		}]);
+
+		return _Parent3;
+	}();
+
+	;
+	var v = new _Parent3();
+	console.log(v.longName); //  mkhaha
+	v.longName = 'hello';
+	console.log(v.longName); // mkhello
+}
+
+{
+	// 静态方法通过类调用，而不是通过例的实例去调用....
+	var _Parent4 = function () {
+		function _Parent4() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'wg';
+
+			_classCallCheck(this, _Parent4);
+
+			this.name = name;
+		}
+
+		_createClass(_Parent4, null, [{
+			key: 'tell',
+			value: function tell() {
+				//  静态方法...
+				console.log('tell');
+			}
+		}]);
+
+		return _Parent4;
+	}();
+
+	_Parent4.type = 'haha'; // 静态属性的定义方法...
+	_Parent4.tell(); // tell
+	console.log(_Parent4.type);
 }
 
 /***/ })
