@@ -86,135 +86,77 @@ __webpack_require__(2);
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function test() {
+	// 	for (let i = 1; i < 3; i++) {
+	// 		console.log(i)
+	// 	}
+	// 	console.log(i)
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	//let a = 1
+	var a = 2;
+}
+//test()
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/* function last() {
+	const PI = 3.1415
+	// PI = 8
+	console.log(PI)
+}
+last() */
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/* {
+	let a = 10;
+    var b = 1;
+}
+// console.log(a)  // 报错  let声明的变量只在它所在的代码块有效。
+console.log(b) */ // 1
+
+/* {
+	for (let i = 0; i < 10; i++) {   // 计数器i只在for循环体内有效，在循环体外引用就会报错。
+	  // ...
+	}
+	console.log(i)  // ReferenceError: i is not defined
+} */
+
+//console.time("获取数据");
+//console.timeEnd('获取数据');
+
+// 下面代码中，变量i是var命令声明的，在全局范围内都有效，所以全局只有一个变量i。每一次循环，变量i的值都会发生改变，而循环内被赋给数组a的函数内部的console.log(i)，里面的i指向的就是全局的i。也就是说，所有数组a的成员里面的i，指向的都是同一个i，导致运行时输出的是最后一轮的i的值，也就是 10。
+
+/* {
+	var a = [], b = []
+	for (var i = 0; i < 10; i++) {
+	  console.log(i);
+	  b[i] = i;
+	  a[i] = function () {
+		console.log(i);	
+	  };
+// 	  if (i == 4) {
+// 		 a[i]()
+// 		 break;
+// 	  }
+	  console.log('HH',i);
+	}
+	
+	console.log('kk',i)  //  kk 10
+	a[4]();  //  10
+	console.log(b[4])	
+	console.log(b)
+} */
 
 {
-	var Parent = function Parent() {
-		var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+	var a = [];
 
-		_classCallCheck(this, Parent);
-
-		this.name = name;
+	var _loop = function _loop(i) {
+		a[i] = function () {
+			console.log(i);
+		};
 	};
 
-	var v_child = new Parent('andong');
-	console.log(v_child.name); //  andong
-}
-
-{
-	var _Parent = function () {
-		function _Parent() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
-
-			_classCallCheck(this, _Parent);
-
-			this.name = name;
-		}
-
-		_createClass(_Parent, [{
-			key: 'hehe',
-			value: function hehe() {
-				console.log('pp');
-			}
-		}]);
-
-		return _Parent;
-	}();
-
-	var Child = function (_Parent2) {
-		_inherits(Child, _Parent2);
-
-		function Child() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'KK';
-			var type = arguments[1];
-
-			_classCallCheck(this, Child);
-
-			var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
-
-			_this.type = type;
-			return _this;
-		}
-
-		_createClass(Child, [{
-			key: 'yy',
-			value: function yy() {
-				console.log('yy');
-			}
-		}]);
-
-		return Child;
-	}(_Parent);
-
-	var child = new Child('mm', 'nn');
-	console.log(child.name);
-	console.log(child.type);
-	child.hehe();
-	child.yy();
-}
-
-{
-	// getter, setter
-	var _Parent3 = function () {
-		function _Parent3() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
-
-			_classCallCheck(this, _Parent3);
-
-			this.name = name;
-		}
-
-		_createClass(_Parent3, [{
-			key: 'longName',
-			get: function get() {
-				return 'mk' + this.name;
-			},
-			set: function set(value) {
-				this.name = value;
-			}
-		}]);
-
-		return _Parent3;
-	}();
-
-	;
-	var v = new _Parent3();
-	console.log(v.longName); //  mkhaha
-	v.longName = 'hello';
-	console.log(v.longName); // mkhello
-}
-
-{
-	// 静态方法通过类调用，而不是通过例的实例去调用....
-	var _Parent4 = function () {
-		function _Parent4() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'wg';
-
-			_classCallCheck(this, _Parent4);
-
-			this.name = name;
-		}
-
-		_createClass(_Parent4, null, [{
-			key: 'tell',
-			value: function tell() {
-				//  静态方法...
-				console.log('tell');
-			}
-		}]);
-
-		return _Parent4;
-	}();
-
-	_Parent4.type = 'haha'; // 静态属性的定义方法...
-	_Parent4.tell(); // tell
-	console.log(_Parent4.type);
+	for (var i = 0; i < 10; i++) {
+		_loop(i);
+	}
+	a[6](); // 6
 }
 
 /***/ })
