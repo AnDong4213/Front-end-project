@@ -77,7 +77,32 @@ module.exports = __webpack_require__(1);
 "use strict";
 
 
-__webpack_require__(2);
+var _lesson = __webpack_require__(2);
+
+console.log(_lesson.A); /*class Test{
+                        	constructor() {
+                        		this.a = 'hello world'
+                        	}
+                        }
+                        
+                        let test = new Test()
+                        document.body.innerHTML = test.a*/
+
+// import 'babel-polyfill';
+// import './class/lesson1.js';
+
+
+(0, _lesson.test)();
+(0, _lesson.hehe)();
+(0, _lesson.bar)();
+
+/* import * as lesson from './class/lesson17.js'
+console.log(lesson.A)
+lesson.test() */
+
+/* import lesson1 from './class/lesson17.js'
+console.log(lesson1.A)
+lesson1.test() */
 
 /***/ }),
 /* 2 */
@@ -86,78 +111,93 @@ __webpack_require__(2);
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _lesson = __webpack_require__(3);
+
+Object.defineProperty(exports, 'foo', {
+	enumerable: true,
+	get: function get() {
+		return _lesson.foo;
+	}
+});
+Object.defineProperty(exports, 'bar', {
+	enumerable: true,
+	get: function get() {
+		return _lesson.bar;
+	}
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* export const A = 17;
+
+export function test() {
+	console.log('test')
+}
+
+export class Hello {
+	test() {
+		console.log('class')
+	}
+} */
+
+var A = 17;
+
 function test() {
-	// 	for (let i = 1; i < 3; i++) {
-	// 		console.log(i)
-	// 	}
-	// 	console.log(i)
-
-	//let a = 1
-	var a = 2;
+	console.log('test');
 }
-//test()
 
-/* function last() {
-	const PI = 3.1415
-	// PI = 8
-	console.log(PI)
+function haha() {
+	console.log('haha');
 }
-last() */
 
-/* {
-	let a = 10;
-    var b = 1;
-}
-// console.log(a)  // 报错  let声明的变量只在它所在的代码块有效。
-console.log(b) */ // 1
-
-/* {
-	for (let i = 0; i < 10; i++) {   // 计数器i只在for循环体内有效，在循环体外引用就会报错。
-	  // ...
+var Hello = function () {
+	function Hello() {
+		_classCallCheck(this, Hello);
 	}
-	console.log(i)  // ReferenceError: i is not defined
+
+	_createClass(Hello, [{
+		key: 'test',
+		value: function test() {
+			console.log('class');
+		}
+	}]);
+
+	return Hello;
+}();
+
+exports.A = A;
+exports.test = test;
+exports.Hello = Hello;
+exports.hehe = haha;
+
+/* export default {  // 有default的话，这样引进 import lesson1 from './class/lesson17.js' 才能用...
+	A, test, Hello	
 } */
 
-//console.time("获取数据");
-//console.timeEnd('获取数据');
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// 下面代码中，变量i是var命令声明的，在全局范围内都有效，所以全局只有一个变量i。每一次循环，变量i的值都会发生改变，而循环内被赋给数组a的函数内部的console.log(i)，里面的i指向的就是全局的i。也就是说，所有数组a的成员里面的i，指向的都是同一个i，导致运行时输出的是最后一轮的i的值，也就是 10。
+"use strict";
 
-/* {
-	var a = [], b = []
-	for (var i = 0; i < 10; i++) {
-	  console.log(i);
-	  b[i] = i;
-	  a[i] = function () {
-		console.log(i);	
-	  };
-// 	  if (i == 4) {
-// 		 a[i]()
-// 		 break;
-// 	  }
-	  console.log('HH',i);
-	}
-	
-	console.log('kk',i)  //  kk 10
-	a[4]();  //  10
-	console.log(b[4])	
-	console.log(b)
-} */
 
-{
-	var a = [];
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var foo = 'hot';
 
-	var _loop = function _loop(i) {
-		a[i] = function () {
-			console.log(i);
-		};
-	};
+var bar = function bar() {
+	console.log('bar');
+};
 
-	for (var i = 0; i < 10; i++) {
-		_loop(i);
-	}
-	a[6](); // 6
-}
+exports.foo = foo;
+exports.bar = bar;
 
 /***/ })
 /******/ ]);
