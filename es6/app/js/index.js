@@ -8,14 +8,14 @@ let test = new Test()
 document.body.innerHTML = test.a*/
 
 // import 'babel-polyfill';
-// import './class/lesson1.js';
+import './class/lesson7.js';
 
 
-import {A as B,test,Hello, hehe, bar} from './class/lesson17.js';
+/* import {A as B,test,Hello, hehe, bar} from './class/lesson17.js';
 console.log(B)
 test()
 hehe()
-bar()
+bar() */
 
 /* import * as lesson from './class/lesson17.js'
 console.log(lesson.A)

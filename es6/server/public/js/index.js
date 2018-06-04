@@ -77,32 +77,7 @@ module.exports = __webpack_require__(1);
 "use strict";
 
 
-var _lesson = __webpack_require__(2);
-
-console.log(_lesson.A); /*class Test{
-                        	constructor() {
-                        		this.a = 'hello world'
-                        	}
-                        }
-                        
-                        let test = new Test()
-                        document.body.innerHTML = test.a*/
-
-// import 'babel-polyfill';
-// import './class/lesson1.js';
-
-
-(0, _lesson.test)();
-(0, _lesson.hehe)();
-(0, _lesson.bar)();
-
-/* import * as lesson from './class/lesson17.js'
-console.log(lesson.A)
-lesson.test() */
-
-/* import lesson1 from './class/lesson17.js'
-console.log(lesson1.A)
-lesson1.test() */
+__webpack_require__(2);
 
 /***/ }),
 /* 2 */
@@ -111,93 +86,147 @@ lesson1.test() */
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
+{
+	var test = function test(a) {
+		var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'haha';
+		var c = arguments[2];
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+		console.log(a, b, c);
+	};
 
-var _lesson = __webpack_require__(3);
-
-Object.defineProperty(exports, 'foo', {
-	enumerable: true,
-	get: function get() {
-		return _lesson.foo;
-	}
-});
-Object.defineProperty(exports, 'bar', {
-	enumerable: true,
-	get: function get() {
-		return _lesson.bar;
-	}
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/* export const A = 17;
-
-export function test() {
-	console.log('test')
+	test('hehe'); //  hehe haha undefined
 }
 
-export class Hello {
-	test() {
-		console.log('class')
-	}
-} */
+{
+	var test2 = function test2(x) {
+		var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : x;
 
-var A = 17;
+		console.log(x, y);
+	};
 
-function test() {
-	console.log('test');
+	var x = 'haha';
+
+	test2(); // undefined undefined
+	test2('uu'); // uu uu
 }
 
-function haha() {
-	console.log('haha');
+{
+	var _test = function _test(c) {
+		var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _x3;
+
+		console.log(c, y);
+	};
+
+	var _x3 = 'haha';
+
+	_test(); //  undefined "haha"
+	_test('uu'); //  uu haha
 }
 
-var Hello = function () {
-	function Hello() {
-		_classCallCheck(this, Hello);
-	}
-
-	_createClass(Hello, [{
-		key: 'test',
-		value: function test() {
-			console.log('class');
+{
+	var _test2 = function _test2() {
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
 		}
-	}]);
 
-	return Hello;
-}();
+		var _iteratorNormalCompletion = true;
+		var _didIteratorError = false;
+		var _iteratorError = undefined;
 
-exports.A = A;
-exports.test = test;
-exports.Hello = Hello;
-exports.hehe = haha;
+		try {
+			for (var _iterator = args[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+				var value = _step.value;
 
-/* export default {  // 有default的话，这样引进 import lesson1 from './class/lesson17.js' 才能用...
-	A, test, Hello	
+				console.log(value);
+			}
+		} catch (err) {
+			_didIteratorError = true;
+			_iteratorError = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion && _iterator.return) {
+					_iterator.return();
+				}
+			} finally {
+				if (_didIteratorError) {
+					throw _iteratorError;
+				}
+			}
+		}
+	};
+
+	_test2('a', 'b', 'c');
+}
+
+{
+	var _test3 = function _test3() {
+		console.log(arguments);
+		var arr = Array.from(arguments);
+		console.log(arr);
+	};
+
+	_test3('a', 'b');
+}
+
+{
+	var _console;
+
+	(_console = console).log.apply(_console, ['y'].concat([1, 2, 4])); //  y 1 2 4
+}
+
+{
+	var arrow = function arrow(v) {
+		return v * 2;
+	};
+	console.log(arrow(7));
+}
+
+{
+	var tail = function tail(x) {
+		console.log('tail', x);
+	};
+
+	var fx = function fx(x) {
+		return tail(x);
+	};
+
+	fx(897);
+}
+
+/* {
+	function f(a, ...b, v) {  // 注意，rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错
+	  // ...
+	}
 } */
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 箭头函数有几个使用注意点。
 
-"use strict";
+（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
 
+（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var foo = 'hot';
+（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
 
-var bar = function bar() {
-	console.log('bar');
-};
+（4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
 
-exports.foo = foo;
-exports.bar = bar;
+上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。 */
+
+{
+	var foo = function foo() {
+		var _this = this;
+
+		return function () {
+			return function () {
+				return function () {
+					console.log('idhh:', _this.id);
+				};
+			};
+		};
+	};
+
+	var f = foo.call({ id: 1 });
+	f()().call({ id: 4 });
+}
 
 /***/ })
 /******/ ]);
