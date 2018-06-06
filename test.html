@@ -12,9 +12,98 @@
 		</div>
 		
 		<script type="text/javascript">
-			var a = 1
+			
+			/* var a = 1
 			console.log(window.a)
-			console.log(self == window)  // true
+			console.log(self == window) */  // true
+			
+			// Javascript中Object对象原型上的hasOwnProperty()用来判断一个属性是定义在对象本身而不是继承自原型链。
+			// 遍历一个对象的所有自身属性  for...in循环对象(是对象而不是函数...)的所有枚举属性，然后再使用hasOwnProperty()方法来忽略继承属性。
+			/* let o ={
+				a: 9,
+				b: 8
+			}
+			for (let name in o) {
+				console.log(name)
+			}
+			console.log(o.hasOwnProperty('a')) */  // true
+			
+			
+			 function foo(hi) {
+				 this.name = hi
+				 this.sayHi = function() {
+					 console.log(this.hi)
+				 }
+			 }
+			foo.prototype.hehe = 'hehe'
+			foo.prototype.haha = function () {
+				console.log('haha')
+			}
+			let myFoo = new foo('hi')
+			// myFoo.haha()  // haha
+			
+			console.log(myFoo.hasOwnProperty('name'))   // true			
+			console.log(myFoo.hasOwnProperty('sayHi')) 	// true				 
+			console.log(myFoo.hasOwnProperty('hehe'))   // false		
+			console.log(myFoo.hasOwnProperty('haha'))   // false
+
+			console.log('haha' in myFoo) // true
+			
+			/* function data(ha) {
+				console.log('数据为: '+ ha.data)
+			}
+			data({data: 'pp'})
+			
+			function data2(ha) {
+				console.log('数据为: '+ ha.join(' '))
+			}
+			data2(['a','b','c']) */
+			
+			// console.log(Promise)
+			function hehe(hi) {
+				return Promise.resolve(hi)
+			}
+			hehe('andong').then(res => {
+				console.log(res)  //  andong
+			})
+			
+			
+			let _uid = 0;
+			function getUid() {
+				if (_uid) {
+					return _uid
+				}
+				if (!_uid) {
+					// const t = (new Date).getUTCMilliseconds()
+					const t = new Date().getUTCMilliseconds()
+					console.log(t)					
+					console.log(1e10)
+					_uid = Math.round(2147483647 * Math.random()) * t % 1e10
+				}
+				return _uid
+			}
+			console.log(getUid())
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+
+			
 		</script>
 		
 	</body>

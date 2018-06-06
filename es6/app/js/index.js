@@ -8,7 +8,9 @@ let test = new Test()
 document.body.innerHTML = test.a*/
 
 // import 'babel-polyfill';
-import './class/lesson7.js';
+// import {createSong} from './class/lesson17.2.js';
+import './class/lesson12.js';
+
 
 
 /* import {A as B,test,Hello, hehe, bar} from './class/lesson17.js';
@@ -24,6 +26,20 @@ lesson.test() */
 /* import lesson1 from './class/lesson17.js'
 console.log(lesson1.A)
 lesson1.test() */
+
+
+/* let haha = {
+	songid: 'QQ',
+	songmid: 'PP',
+	singer: 'RR',
+	songname: 'AA',
+	albumname: 'TT',
+	interval: 'DD',
+	image: 'BB'
+}
+let b = createSong(haha)
+console.log(b)
+console.log(b.name) */
 
 
 

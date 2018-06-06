@@ -5,7 +5,9 @@
 		}
 	}
 	let v_child = new Parent('andong')
+	console.log(v_child)
 	console.log(v_child.name)  //  andong
+
 }
 
 
@@ -51,7 +53,6 @@
 	console.log(v.longName)	 //  mkhaha
 	v.longName = 'hello'
 	console.log(v.longName)  // mkhello
-
 }
 
 
@@ -68,10 +69,11 @@
 	Parent.type = 'haha'   // 静态属性的定义方法...
 	Parent.tell()  // tell
 	console.log(Parent.type)
-	
 }
 
-
+{
+	
+}
 
 
 
