@@ -34,10 +34,10 @@
 	console.log(Object.assign(a,b))  // {a: "a", b: "b"}   // 浅拷贝...
 	console.log(a)  // {a: "a", b: "b"}
 	console.log(b)  // {b: "b"}  
-
 }
 
 {
+	//  Object.assign 拷贝的属性是有限制的，只拷贝源对象的自身属性（不拷贝继承属性），也不拷贝不可枚举的属性（enumerable: false）
 	let a = {a: 'a'}, b = {b: 'b'}
 	console.log(Object.assign({},a,b)) 
 	console.log(a)  // {a: "a"}

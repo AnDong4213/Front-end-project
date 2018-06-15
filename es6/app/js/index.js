@@ -9,7 +9,7 @@ document.body.innerHTML = test.a*/
 
 // import 'babel-polyfill';
 // import {createSong} from './class/lesson17.2.js';
-import './class/lesson12.js';
+import './class/lesson8.1.js';
 
 
 

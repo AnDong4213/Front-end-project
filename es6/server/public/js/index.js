@@ -86,139 +86,143 @@ __webpack_require__(2);
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-{
-	var Parent = function Parent() {
-		var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
-
-		_classCallCheck(this, Parent);
-
-		this.name = name;
+var isType = function isType(type) {
+	return function (obj) {
+		return Object.prototype.toString.call(obj) === '[object ' + type + ']';
 	};
-
-	var v_child = new Parent('andong');
-	console.log(v_child);
-	console.log(v_child.name); //  andong
-}
+};
 
 {
-	var _Parent = function () {
-		function _Parent() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+	// 1. 属性的简洁表示法 § ⇧
+	// ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。
+	/* let foo = 'haha', baz = {foo};
+ console.log(baz)  //  {foo: "haha"}
+ console.log(isType('Object')(baz)) */ // true
 
-			_classCallCheck(this, _Parent);
+	/* function f(x,y) {
+ 	return {x,y}
+ }
+ console.log(f(4,7)) */ // {x: 4, y: 7}
 
-			this.name = name;
-		}
+	/* let birth = '2000/01/01';
+ let person = {
+ 	name: '哈哈',
+ 	birth,
+ 	hello() {
+ 		console.log(this.name)
+ 	},
+ 	class() {
+ 		console.log('我是class')
+ 	}
+ }
+ person.class() //  我是class
+ console.log(person.birth)  */ // 2000/01/01
 
-		_createClass(_Parent, [{
-			key: 'hehe',
-			value: function hehe() {
-				console.log('pp');
-			}
-		}]);
+	// 属性的赋值器（setter）和取值器（getter），事实上也是采用这种写法
+	/* let cart = {
+ 	_wheels: 14,
+ 	get wheels() {
+ 		return this._wheels
+ 	},
+ 	set wheels (value) {
+ 		if (value < this._wheels) {
+ 			throw new Error('数值太小了！');
+ 		}
+ 		this._wheels = value
+ 	}
+ }
+ // console.log(cart.wheels)  //  14
+ cart._wheels = 12
+ console.log(cart.wheels) */ // 12
 
-		return _Parent;
-	}();
+	/* console.log(-0 === +0)  // true
+ console.log(Object.is(-0,+0))  // false
+ console.log(Object.is(NaN,NaN)) */ // true
 
-	var Child = function (_Parent2) {
-		_inherits(Child, _Parent2);
+	// console.log(Object.assign(null))  // Cannot convert undefined or null to object
 
-		function Child() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'KK';
-			var type = arguments[1];
+	/* let arra = ['id','mid','singer','name','album','duration','image']
+ class Point {
+ 	constructor(id, mid, singer, name, album, duration, image) {
+ 		Object.assign(this,{id, mid, singer, name, album, duration, image});
+ 		this.url = 'www.baidu.com';
+ 	}
+ }
+ function createPoint(...a) {
+ 	// return new Point('id','mid','singer','name','album','duration','image')
+ 	return new Point(...a)
+ }
+ let aaa = createPoint(...arra)
+ console.log(aaa) */
 
-			_classCallCheck(this, Child);
+	/* let urlMap = {}
+ class Point {
+ 	constructor({id, mid, singer, name, album, duration, image}) {
+ 		Object.assign(this,{id, mid, singer, name, album, duration, image});
+ 		this.url = 'www.baidu.com';
+ 		if (urlMap[this.id]) {
+ 			this.ageurl = urlMap[this.id]
+ 		} else {
+ 			this.genUrl()
+ 		}
+ 	}
+ 	genUrl() {
+ 		this.ageurl = `http://dl.stream.qqmusic.qq.com`
+ 	}
+ }
+ function createSong(d) {
+ 	return new Point({
+ 		id: d.songid,
+ 		mid: d.songmid,
+ 		singer: d.singer,
+ 		name: d.songname,
+ 		album: d.albumname,
+ 		duration: d.interval,
+ 		image: d.image
+ 	})
+ }
+ let haha = {
+ 	songid: 'QQ',
+ 	songmid: 'PP',
+ 	singer: 'RR',
+ 	songname: 'AA',
+ 	albumname: 'TT',
+ 	interval: 'DD',
+ 	image: 'BB',
+ 	a: 89,
+ 	d: 90,
+ 	c: 86
+ }
+ let b = createSong(haha)
+ console.log(b) */
 
-			var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
+	/* class Point1 {
+   constructor(x, y) {
+ 	Object.assign(this, {x, y});
+   }
+ }
+ let aa = new Point1(2,6)
+ console.log(aa) */
 
-			_this.type = type;
-			return _this;
-		}
-
-		_createClass(Child, [{
-			key: 'yy',
-			value: function yy() {
-				console.log('yy');
-			}
-		}]);
-
-		return Child;
-	}(_Parent);
-
-	var child = new Child('mm', 'nn');
-	console.log(child.name);
-	console.log(child.type);
-	child.hehe();
-	child.yy();
+	var haha = {
+		songid: 'QQ',
+		songmid: 'PP',
+		singer: 'RR',
+		songname: 'AA',
+		albumname: 'TT',
+		interval: 'DD',
+		image: 'BB'
+	};
+	var num = {
+		a: 89,
+		d: 90,
+		c: 86
+	};
+	var merge = function merge(aa, sources) {
+		return Object.assign({}, aa, sources);
+	};
+	console.log(merge(num, haha));
 }
-
-{
-	// getter, setter
-	var _Parent3 = function () {
-		function _Parent3() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
-
-			_classCallCheck(this, _Parent3);
-
-			this.name = name;
-		}
-
-		_createClass(_Parent3, [{
-			key: 'longName',
-			get: function get() {
-				return 'mk' + this.name;
-			},
-			set: function set(value) {
-				this.name = value;
-			}
-		}]);
-
-		return _Parent3;
-	}();
-
-	;
-	var v = new _Parent3();
-	console.log(v.longName); //  mkhaha
-	v.longName = 'hello';
-	console.log(v.longName); // mkhello
-}
-
-{
-	// 静态方法通过类调用，而不是通过例的实例去调用....
-	var _Parent4 = function () {
-		function _Parent4() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'wg';
-
-			_classCallCheck(this, _Parent4);
-
-			this.name = name;
-		}
-
-		_createClass(_Parent4, null, [{
-			key: 'tell',
-			value: function tell() {
-				//  静态方法...
-				console.log('tell');
-			}
-		}]);
-
-		return _Parent4;
-	}();
-
-	_Parent4.type = 'haha'; // 静态属性的定义方法...
-	_Parent4.tell(); // tell
-	console.log(_Parent4.type);
-}
-
-{}
 
 /***/ })
 /******/ ]);
