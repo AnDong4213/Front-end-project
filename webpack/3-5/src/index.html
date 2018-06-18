@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="main">
+    <h1>我是安安</h1>
+  </div>
+
+  <script src="../dist/manifest.bundle.js"></script>
+  <script src="../dist/vendor.bundle.js"></script>
+  <!--<script src="../dist/common.bundle.js"></script>-->
+  <script src="../dist/common.js"></script>
+  <script src="../dist/mindex.bundle.js"></script>
+  <script src="../dist/mindex2.bundle.js"></script>
+
+
+  <script type="text/javascript">
+  // hasOwnProperty() 方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性
+  // 所有继承了 Object 的对象都会继承到 hasOwnProperty 方法。这个方法可以用来检测一个对象是否含有特定的自身属性；和 in 运算符不同，该方法会忽略掉那些从原型链上继承到的属性。
+	// JavaScript 并没有保护 hasOwnProperty 属性名，因此某个对象是有可能存在使用这个属性名的属性，使用外部的 hasOwnProperty 获得正确的结果是需要的：
+    /* let haObj = {
+        prop: 'exists',
+        aa: '安乐',
+				hasOwnProperty() {
+					console.log('我是hasOwnProperty')
+				}
+    }, heObj = new Object();
+
+    // console.log(haObj.hasOwnProperty('aa'));  // true
+    // console.log(haObj.hasOwnProperty('toString'));   // false
+    for (moduleId in haObj) {
+       if (Object.prototype.hasOwnProperty.call(haObj, moduleId)) {
+        heObj[moduleId] = haObj[moduleId]
+      }
+    }
+    console.log(heObj)
+		heObj.hasOwnProperty() */
+  </script>
+
+</body>
+</html>

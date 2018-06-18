@@ -3,25 +3,26 @@ let path = require('path')
 
 module.exports = {
 	entry: {
-		'mindex': './src/mindex.js',
-		'mindex2': './src/mindex2.js',
-		'vendor': ['lodash', 'jquery']
+		'pageA': './src/pageA.js',
+		'pageB': './src/pageB.js',
+		'vendor': ['lodash']
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
+		publicPath: './dist/',
 		filename: '[name].bundle.js',
-		chunkFilename: '[name].chunk.js'
+		chunkFilename: '[name].chunk.js'  // 这里使用了 chunkFilename，它决定非入口 chunk 的名称。
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',   //  不能省略...
-			filename: 'common.js',  // 如果有生成common.js文件，没有的话生成common.bundle.js文件...
-			minChunks:2,
-			chunks: ['mindex', 'mindex2']
+			async: 'async-common',
+			children: true,
+			minChunks: 2
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'manifest'],
 			minChunks: Infinity
 		})
 	]
+
 }

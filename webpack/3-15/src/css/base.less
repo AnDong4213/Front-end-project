@@ -1,0 +1,51 @@
+@homecolor: pink;
+
+html {
+  background-color: @homecolor;
+}
+
+.box {
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+}
+
+.bigBox {
+  height: 400px;
+  width: 400px;
+  border: 5px solid green;
+  color: #fff;
+
+  > div {
+    width: 150px;
+    height: 150px;
+    float: left;
+    border: 1px solid red;
+  }
+
+  .ani1 {
+    background: url('../assets/imgs/1.png') no-repeat;
+  }
+  .ani2 {
+    background: url('../assets/imgs/2.png') no-repeat;
+  }
+  .ani3 {
+    background: url('../assets/imgs/3.png') no-repeat;
+  }
+  .ani4 {
+    background: url('../assets/imgs/4.png') no-repeat;
+  }
+
+}
+
+.smallBox {
+  height: 600px;
+  width: 600px;
+  border: 5px;
+}
+
+.littleBox {
+  height: 400px;
+  width: 400px;
+  border: 5px;
+}

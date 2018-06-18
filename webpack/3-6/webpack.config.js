@@ -9,19 +9,22 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
+		publicPath: './dist/',
 		filename: '[name].bundle.js',
-		chunkFilename: '[name].chunk.js'
+		chunkFilename: '[name].chunk.js'  // 这里使用了 chunkFilename，它决定非入口 chunk 的名称。
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',   //  不能省略...
-			filename: 'common.js',  // 如果有生成common.js文件，没有的话生成common.bundle.js文件...
-			minChunks:2,
-			chunks: ['mindex', 'mindex2']
+			name: 'mindex',  //必须是entry里的入口string 生成 2.js 文件...
+			async: true,
+			// async: 'async-common',  // 生成了 async-common-mindex.chunk.js 文件...
+			children: true,
+			minChunks: 2
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'manifest'],
 			minChunks: Infinity
 		})
 	]
+
 }

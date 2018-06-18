@@ -1,0 +1,1 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["mindex"],[],[["./src/mindex.js","manifest","vendor","default"]]]);
