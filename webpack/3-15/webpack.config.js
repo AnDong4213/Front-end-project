@@ -60,6 +60,7 @@ module.exports = {
 							options: {
 								ident: 'postcss',
 								plugins: [
+									require('postcss-sprites')(),
 									require('postcss-cssnext')()
 								]
 							}
@@ -71,13 +72,30 @@ module.exports = {
 			{
 				test: /\.(png|jpg|jpeg|gif)$/i,
 				use: [
-					{
+					/*{
 						loader: 'file-loader',
 						options: {
 							name: '[hash:base64:6]--[name].[ext]',
 							outputPath: 'img',
 							publicPath: '../dist/img'
 							// useRelativePath: true
+						}
+					}*/
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 2000,
+							name: '[hash:base64:6]--[name].[ext]',
+							outputPath: 'img',
+							publicPath: '../dist/img'
+						}
+					},
+					{
+						loader: 'img-loader',
+						options: {
+							pngquant: {
+								quality: 80
+							}
 						}
 					}
 				]

@@ -23,17 +23,25 @@ html {
 }
 
 .bigBox .ani1 {
-  background: url(../dist/img/1DzdDJ--1.png) no-repeat;
+  background-image: url(../dist/img/qxHn1D--sprite.png);
+  background-position: 0px 0px;
+  background-size: 300px 300px;
 }
 
 .bigBox .ani2 {
-  background: url(../dist/img/2CH9sK--2.png) no-repeat;
+  background-image: url(../dist/img/qxHn1D--sprite.png);
+  background-position: -150px 0px;
+  background-size: 300px 300px;
 }
 
 .bigBox .ani3 {
-  background: url(../dist/img/-5PXFj--3.png) no-repeat;
+  background-image: url(../dist/img/qxHn1D--sprite.png);
+  background-position: 0px -150px;
+  background-size: 300px 300px;
 }
 
 .bigBox .ani4 {
-  background: url(../dist/img/28Rivz--4.png) no-repeat;
+  background-image: url(../dist/img/qxHn1D--sprite.png);
+  background-position: -150px -150px;
+  background-size: 300px 300px;
 }
