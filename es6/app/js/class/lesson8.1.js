@@ -53,7 +53,7 @@ const isType = function(type) {
 	
 	// console.log(Object.assign(null))  // Cannot convert undefined or null to object
 	
-	/* let arra = ['id','mid','singer','name','album','duration','image']
+	let arra = ['1','2','3','4','5','6','7']
 	class Point {
 		constructor(id, mid, singer, name, album, duration, image) {
 			Object.assign(this,{id, mid, singer, name, album, duration, image});
@@ -61,11 +61,10 @@ const isType = function(type) {
 		}
 	}
 	function createPoint(...a) {
-		// return new Point('id','mid','singer','name','album','duration','image')
 		return new Point(...a)
 	}
 	let aaa = createPoint(...arra)
-	console.log(aaa) */
+	console.log(aaa) 
 	
 	/* let urlMap = {}
 	class Point {
@@ -112,13 +111,13 @@ const isType = function(type) {
 	
 	/* class Point1 {
 	  constructor(x, y) {
-		Object.assign(this, {x, y});
+		  Object.assign(this, {x, y});
 	  }
 	}
 	let aa = new Point1(2,6)
-	console.log(aa) */
+	console.log(aa)  */
 	
-	let haha = {
+	/* let haha = {
 		songid: 'QQ',
 		songmid: 'PP',
 		singer: 'RR',
@@ -133,8 +132,13 @@ const isType = function(type) {
 		c: 86
 	}
 	const merge = (aa, sources) => Object.assign({}, aa,sources);
-	console.log(merge(num, haha))
+	console.log(merge(num, haha)) */
 	
+	// console.log(Object.assign(2))
+	
+	/* const v1 = 'abc', v2 = true, v3 = 10;
+	const obj = Object.assign({}, v1, v2, v3);
+	console.log(obj); */  //  {0: "a", 1: "b", 2: "c"}
 	
 }
 

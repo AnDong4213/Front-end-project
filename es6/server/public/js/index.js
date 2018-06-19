@@ -86,6 +86,8 @@ __webpack_require__(2);
 "use strict";
 
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var isType = function isType(type) {
 	return function (obj) {
 		return Object.prototype.toString.call(obj) === '[object ' + type + ']';
@@ -93,6 +95,14 @@ var isType = function isType(type) {
 };
 
 {
+	var createPoint = function createPoint() {
+		for (var _len = arguments.length, a = Array(_len), _key = 0; _key < _len; _key++) {
+			a[_key] = arguments[_key];
+		}
+
+		return new (Function.prototype.bind.apply(Point, [null].concat(a)))();
+	};
+
 	// 1. 属性的简洁表示法 § ⇧
 	// ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。
 	/* let foo = 'haha', baz = {foo};
@@ -141,19 +151,17 @@ var isType = function isType(type) {
 
 	// console.log(Object.assign(null))  // Cannot convert undefined or null to object
 
-	/* let arra = ['id','mid','singer','name','album','duration','image']
- class Point {
- 	constructor(id, mid, singer, name, album, duration, image) {
- 		Object.assign(this,{id, mid, singer, name, album, duration, image});
- 		this.url = 'www.baidu.com';
- 	}
- }
- function createPoint(...a) {
- 	// return new Point('id','mid','singer','name','album','duration','image')
- 	return new Point(...a)
- }
- let aaa = createPoint(...arra)
- console.log(aaa) */
+	var arra = ['1', '2', '3', '4', '5', '6', '7'];
+
+	var Point = function Point(id, mid, singer, name, album, duration, image) {
+		_classCallCheck(this, Point);
+
+		Object.assign(this, { id: id, mid: mid, singer: singer, name: name, album: album, duration: duration, image: image });
+		this.url = 'www.baidu.com';
+	};
+
+	var aaa = createPoint.apply(undefined, arra);
+	console.log(aaa);
 
 	/* let urlMap = {}
  class Point {
@@ -198,30 +206,34 @@ var isType = function isType(type) {
 
 	/* class Point1 {
    constructor(x, y) {
- 	Object.assign(this, {x, y});
+ 	  Object.assign(this, {x, y});
    }
  }
  let aa = new Point1(2,6)
- console.log(aa) */
+ console.log(aa)  */
 
-	var haha = {
-		songid: 'QQ',
-		songmid: 'PP',
-		singer: 'RR',
-		songname: 'AA',
-		albumname: 'TT',
-		interval: 'DD',
-		image: 'BB'
-	};
-	var num = {
-		a: 89,
-		d: 90,
-		c: 86
-	};
-	var merge = function merge(aa, sources) {
-		return Object.assign({}, aa, sources);
-	};
-	console.log(merge(num, haha));
+	/* let haha = {
+ 	songid: 'QQ',
+ 	songmid: 'PP',
+ 	singer: 'RR',
+ 	songname: 'AA',
+ 	albumname: 'TT',
+ 	interval: 'DD',
+ 	image: 'BB'
+ }
+ let num = {
+ 	a: 89,
+ 	d: 90,
+ 	c: 86
+ }
+ const merge = (aa, sources) => Object.assign({}, aa,sources);
+ console.log(merge(num, haha)) */
+
+	// console.log(Object.assign(2))
+
+	/* const v1 = 'abc', v2 = true, v3 = 10;
+ const obj = Object.assign({}, v1, v2, v3);
+ console.log(obj); */ //  {0: "a", 1: "b", 2: "c"}
 }
 
 /***/ })
