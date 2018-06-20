@@ -1,15 +1,35 @@
 @homecolor: pink;
 
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../assets/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
+         url('../assets/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),
+         url('../assets/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),
+         url('../assets/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),
+         url('../assets/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fa-folder:before {
+    content: "\f07b";
+}
+
 html {
   background-color: @homecolor;
 }
-
 .box {
   height: 200px;
   width: 200px;
   border-radius: 4px;
 }
-
 .bigBox {
   height: 400px;
   width: 400px;
@@ -17,23 +37,23 @@ html {
   color: #fff;
 
   > div {
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     float: left;
     border: 1px solid red;
   }
 
   .ani1 {
-    background: url('../assets/imgs/1.jpg') no-repeat;
+    background: url('../assets/imgs/1@2x.jpg') no-repeat;
   }
   .ani2 {
-    background: url('../assets/imgs/2.jpg') no-repeat;
+    background: url('../assets/imgs/2@2x.jpg') no-repeat;
   }
   .ani3 {
-    background: url('../assets/imgs/3.jpg') no-repeat;
+    background: url('../assets/imgs/3@2x.jpg') no-repeat;
   }
   .ani4 {
-    background: url('../assets/imgs/4.jpg') no-repeat;
+    background: url('../assets/imgs/4@2x.jpg') no-repeat;
   }
 
 }
@@ -48,4 +68,7 @@ html {
   height: 400px;
   width: 400px;
   border: 5px;
+}
+.new {
+  color: green;
 }

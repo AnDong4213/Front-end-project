@@ -60,7 +60,10 @@ module.exports = {
 							options: {
 								ident: 'postcss',
 								plugins: [
-									require('postcss-sprites')(),
+									require('postcss-sprites')({
+										spritePath: 'dist/img',
+										retina: true
+									}),
 									require('postcss-cssnext')()
 								]
 							}
@@ -96,6 +99,20 @@ module.exports = {
 							pngquant: {
 								quality: 80
 							}
+						}
+					}
+				]
+			},
+			{
+				test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							name: '[name]-[hash:5].[ext]',
+							limit: 5000,
+							outputPath: 'fonts',
+							publicPath: '../dist/fonts'
 						}
 					}
 				]
@@ -137,6 +154,9 @@ module.exports = {
 				path.join(__dirname, './*.html'),
 				path.join(__dirname, './src/*.js')
 			])
+		}),
+		new Webpack.ProvidePlugin({
+			$: 'jquery'
 		}),
 		new Webpack.optimize.UglifyJsPlugin()
 	]
