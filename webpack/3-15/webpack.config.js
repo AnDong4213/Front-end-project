@@ -13,8 +13,13 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		publicPath: './dist/',
-		filename: '[name].bundle.js',
+		filename: '[name].bundle-[hash:5].js',
 		chunkFilename: '[name].bundle2.js'
+	},
+	resolve: {
+		alias: {
+			jquery$: path.resolve(__dirname, 'src/libs/jquery.min.js')
+		}
 	},
 	module: {
 		rules: [
@@ -89,7 +94,7 @@ module.exports = {
 						options: {
 							limit: 2000,
 							name: '[hash:base64:6]--[name].[ext]',
-							outputPath: 'img',
+							outputPath: 'img/',
 							publicPath: '../dist/img'
 						}
 					},
@@ -111,7 +116,7 @@ module.exports = {
 						options: {
 							name: '[name]-[hash:5].[ext]',
 							limit: 5000,
-							outputPath: 'fonts',
+							outputPath: 'fonts/',
 							publicPath: '../dist/fonts'
 						}
 					}
@@ -127,6 +132,28 @@ module.exports = {
 					}
 				},
 				exclude: '/node_modules/'
+			},
+			{
+				test: path.resolve(__dirname, 'src/app.js'),
+				use: [
+					{
+						loader: 'imports-loader',
+						options: {
+							$: 'jquery'
+						}
+					}
+				]
+			},
+			{
+				test: /\.html$/,
+				use: [
+					{
+						loader: 'html-loader',
+						options: {
+							attrs: ['img:src', 'img:data-src']
+						}
+					}
+				]
 			}
 
 		]
@@ -137,6 +164,7 @@ module.exports = {
 			title: 'CSS',
 			template: './index.html',
 			filename: '../index1.html',
+			chunks: ['app'],
 			meta: {
 				viewport: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
 			},
@@ -146,7 +174,7 @@ module.exports = {
 			}
 		}),
 		new ExtractTextPlugin({
-			filename: '[name].min.css',
+			filename: '[name].[hash:5].min.css',
 			allChunks: false
 		}),
 		new PurifyCSS({
@@ -155,9 +183,9 @@ module.exports = {
 				path.join(__dirname, './src/*.js')
 			])
 		}),
-		new Webpack.ProvidePlugin({
-			$: 'jquery'
-		}),
+		// new Webpack.ProvidePlugin({
+		// 	$: 'jquery'
+		// }),
 		new Webpack.optimize.UglifyJsPlugin()
 	]
 
