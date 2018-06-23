@@ -1,3 +1,79 @@
+{
+	
+	// console.log(Promise)
+	// Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大
+	
+	// Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。   Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。
+	
+	/* function timeout(ms) {
+		return new Promise((resolve, reject) => {
+			// setTimeout(resolve, ms, 'done');
+			setTimeout(() => {
+				resolve('done')
+			},ms)
+		});
+	}
+	timeout(3000).then((value) => {
+		console.log(value);
+	}); */
+	
+	/* onreadystatechange 事件
+当请求被发送到服务器时，我们需要执行一些基于响应的任务。
+每当 readyState 改变时，就会触发 onreadystatechange 事件。
+readyState 属性存有 XMLHttpRequest 的状态信息。
+下面是 XMLHttpRequest 对象的三个重要的属性：  onreadystatechange(存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。)  readyState   status
+	 */
+	/* const getJSON = function(url) {
+		const promise = new Promise(function(resolve, reject){
+			const handler = function() {
+				if (this.readyState !== 4) {
+					return;
+				}
+				if (this.status === 200) {
+					resolve(this.response);
+				} else {
+					reject(new Error(this.statusText));
+				}
+			};
+			const client = new XMLHttpRequest();
+			// 使用 async=false 时，请不要编写 onreadystatechange 函数 - 把代码放到 send() 语句后面即可：
+			// 一般来说，向服务器发送POST请求由于解析机制的原因，需要进行特别的处理。因为POST请求和Web表单提交是不同的，需要使用XHR来模拟表单提交
+			// xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			client.open("GET", url, true);
+			client.onreadystatechange = handler;
+			client.responseType = "json";
+			client.setRequestHeader("Accept", "application/json");
+			client.send(null);
+		});
+		return promise;
+	};
+	getJSON("https://www.easy-mock.com/mock/59dc45d51de3d46fa94cc91d/axios/testaxios").then(function(json) {
+		console.log(json);
+	}, function(error) {
+		console.error('出错了', error);
+	}); */
+	
+	
+	const p1 = new Promise(function (resolve, reject) {
+		setTimeout(() => resolve('拉拉...'), 3000)
+	})
+
+	const p2 = new Promise(function (resolve, reject) {
+		setTimeout(() => resolve(p1), 1000)
+	})
+
+	p2
+		.then(result => console.log(result))
+		.catch(error => console.log(error))
+	
+	
+	
+	
+	
+	
+}
+
+
 /* {
 	let ajax = function(callback) {
 		console.log('执行...')
@@ -58,7 +134,7 @@
 	greet.call(i)
 } */
 
-{
+/* {
 	let ajax = function(num) {
 		console.log('执行2')
 		return new Promise((resolve,reject) => {
@@ -76,12 +152,13 @@
 	}).catch((err) => {
 		console.log(err)
 	})
-}
+} */
 
-{
+/* {
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
-			let img = document.createElement('img')
+			// let img = document.createElement('img')
+			const img = new Image();
 			img.src = src
 			img.onload = function() {
 				resolve(img)
@@ -99,14 +176,14 @@
 	}
 	
 	Promise.all([
-		loadImg('https://gtd.alicdn.com/tfscom/TB1s4OXX4WYBuNjy1zkwu0GGpXa'),
+		loadImg('https://gma.alicdn.com/bao/uploaded/i4/17318753/TB2MsHEopuWBuNjSszbXXcS7FXa_!!0-saturn_solar.jpg_130x130.jpg_.webp'),
 		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
-		loadImg('https://gtd.alicdn.com/tfscom/TB1gjlgXY1YBuNjSszewu1blFXa')
+		loadImg('https://gtd.alicdn.com/tfscom/TB1LwhKa2NNTKJjSspfSuvXIFXa')
 	]).then(showImgs)
 	
-}
+} */
 
-{
+/* {
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
 			let img = document.createElement('img')
@@ -131,7 +208,7 @@
 		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
 		loadImg('https://gtd.alicdn.com/ tfscom/TB1gjlgXY1YBuNjSszewu1blFXa')
 	]).then(showImgs)
-}
+} */
 
 
 
