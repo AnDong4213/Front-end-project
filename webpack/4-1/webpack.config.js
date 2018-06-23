@@ -1,10 +1,11 @@
+let Webpack = require('webpack')
 let HTMLWebpackPlugin = require('html-webpack-plugin');
 let CleanWebpackPlugin  = require('clean-webpack-plugin')
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let PurifyCSS = require('purifycss-webpack')
-let glob = require('glob-all')
-let Webpack = require('webpack')
 let HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin')
+
+let glob = require('glob-all')
 let path = require('path')
 
 module.exports = {
@@ -13,9 +14,9 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		publicPath: './dist/',
-		filename: '[name].bundle-[hash:5].js',
-		chunkFilename: '[name].bundle2.js'
+		// publicPath: './dist/',
+		filename: 'js/[name].bundle-[hash:5].js',
+		chunkFilename: 'js/[name].bundle2.js'
 	},
 	resolve: {
 		alias: {
@@ -96,7 +97,7 @@ module.exports = {
 							limit: 2000,
 							name: '[hash:base64:6]--[name].[ext]',
 							outputPath: 'img/',
-							publicPath: '../dist/img'
+							publicPath: '../img'
 						}
 					},
 					{
@@ -118,7 +119,7 @@ module.exports = {
 							name: '[name]-[hash:5].[ext]',
 							limit: 5000,
 							outputPath: 'fonts/',
-							publicPath: '../dist/fonts'
+							publicPath: '../fonts'
 						}
 					}
 				]
@@ -175,7 +176,7 @@ module.exports = {
 			}
 		}),
 		new ExtractTextPlugin({
-			filename: '[name].[hash:5].min.css',
+			filename: 'css/[name].[hash:5].min.css',
 			allChunks: false
 		}),
 		new PurifyCSS({
