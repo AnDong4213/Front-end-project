@@ -14,9 +14,12 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		// publicPath: './dist/',
+		publicPath: '/',
 		filename: 'js/[name].bundle-[hash:5].js',
 		chunkFilename: 'js/[name].bundle2.js'
+	},
+	devServer: {
+		port: 9001
 	},
 	resolve: {
 		alias: {
@@ -164,8 +167,10 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 		new HTMLWebpackPlugin({
 			title: 'CSS',
-			template: './index.html',
-			filename: '../index1.html',
+			// template: './index.html',
+			// filename: '../index1.html',
+			filename: 'index.html',
+      template: './index.html',
 			// chunks: ['app'],
 			meta: {
 				viewport: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
