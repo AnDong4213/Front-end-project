@@ -23,6 +23,7 @@ module.exports = {
 	devtool: 'cheap-module-source-map',  // 开发...
 	devServer: {
 		port: 9001,
+		overlay: true,
 		// inline: false,
 		// historyApiFallback: true
 		historyApiFallback: {
@@ -203,14 +204,28 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: ['env'],
-						plugins: ['lodash']
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['env'],
+							plugins: ['lodash']
+						}
+					},
+					{
+						loader: 'eslint-loader',
+						options: {
+							formatter: require('eslint-friendly-formatter')
+						}
 					}
-				},
-				exclude: '/node_modules/'
+				],
+				include: [
+	        path.resolve(__dirname, "src/*.js")
+	      ],
+				exclude: [
+					'/node_modules/',
+					path.resolve(__dirname, "src/libs")
+				]
 			},
 			{
 				test: path.resolve(__dirname, 'src/app.js'),
