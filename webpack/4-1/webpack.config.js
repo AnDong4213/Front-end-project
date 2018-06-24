@@ -19,7 +19,37 @@ module.exports = {
 		chunkFilename: 'js/[name].bundle2.js'
 	},
 	devServer: {
-		port: 9001
+		port: 9001,
+		// inline: false,
+		// historyApiFallback: true
+		historyApiFallback: {
+			rewrites: [
+				// { from: '/pages/a', to: '/pages/a.html' }
+				{
+					from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
+					to: function(context) {
+						return '/' + context.match[1] + context.match[2] + '.html'
+					}
+				}
+			]
+		},
+		proxy: {
+			'/': {
+				target: 'https://m.weibo.cn',
+				changeOrigin: true,
+				logLevel: 'debug',
+				pathRewrite: {
+					'^/comments': '/api/comments',
+					'^/container': '/api/container'
+				},
+				headers: {
+					'Cookie': ''
+				}
+			}
+		},
+		// clientLogLevel: 'none',
+		hot: true,
+		hotOnly: true
 	},
 	resolve: {
 		alias: {
@@ -47,7 +77,7 @@ module.exports = {
 					}
 				]
 			},
-			{
+			/* {
 				test: /\.less$/i,
 				use: ExtractTextPlugin.extract({
 					fallback: {
@@ -81,6 +111,39 @@ module.exports = {
 						{loader: 'less-loader'}
 					]
 				})
+			}, */
+			{
+				test: /\.less$/i,
+				use: [
+					{
+						loader: 'style-loader',
+						options: {
+							singleton: true
+						}
+					},
+					{
+						loader: 'css-loader',
+						options: {
+							// minimize: true,
+							modules: false,
+							localIdentName: '[path][name]_[local]_[hash:base64:5]'
+						}
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							ident: 'postcss',
+							plugins: [
+								require('postcss-sprites')({
+									spritePath: 'dist/img',
+									retina: true
+								}),
+								require('postcss-cssnext')()
+							]
+						}
+					},
+					{loader: 'less-loader'}
+				]
 			},
 			{
 				test: /\.(png|jpg|jpeg|gif)$/i,
@@ -199,7 +262,10 @@ module.exports = {
 		// new Webpack.ProvidePlugin({
 		// 	$: 'jquery'
 		// }),
-		new Webpack.optimize.UglifyJsPlugin()
+		new Webpack.optimize.UglifyJsPlugin(),
+		
+		new Webpack.HotModuleReplacementPlugin(),
+		new Webpack.NamedModulesPlugin()
 	]
 
 }
