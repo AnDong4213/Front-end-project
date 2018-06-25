@@ -1,18 +1,18 @@
-export function a() {
+export function a () {
   return 'this is A'
 }
-export function b() {
+export function b () {
   return 'this is B'
 }
-export function c() {
+export function c () {
   return 'this is C'
 }
 
-export function hasClass(el, className) {
+export function hasClass (el, className) {
   let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
   return reg.test(el.className)
 }
-export function addClass(el, className) {
+export function addClass (el, className) {
   if (hasClass(el, className)) {
     return
   }

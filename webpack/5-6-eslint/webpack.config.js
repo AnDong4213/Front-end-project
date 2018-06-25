@@ -56,9 +56,9 @@ module.exports = {
 		hotOnly: true
 	},
 	resolve: {
-		alias: {
+		/* alias: {
 			jquery$: path.resolve(__dirname, 'src/libs/jquery.min.js')
-		}
+		} */
 	},
 	module: {
 		rules: [
@@ -81,41 +81,6 @@ module.exports = {
 					}
 				]
 			},
-			/* {
-				test: /\.less$/i,
-				use: ExtractTextPlugin.extract({
-					fallback: {
-						loader: 'style-loader',
-						options: {
-							singleton: true
-						}
-					},
-					use: [
-						{
-							loader: 'css-loader',
-							options: {
-								// minimize: true,
-								modules: false,
-								localIdentName: '[path][name]_[local]_[hash:base64:5]'
-							}
-						},
-						{
-							loader: 'postcss-loader',
-							options: {
-								ident: 'postcss',
-								plugins: [
-									require('postcss-sprites')({
-										spritePath: 'dist/img',
-										retina: true
-									}),
-									require('postcss-cssnext')()
-								]
-							}
-						},
-						{loader: 'less-loader'}
-					]
-				})
-			}, */
 			{
 				test: /\.less$/i,
 				use: [
@@ -204,6 +169,11 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
+				include: [path.resolve(__dirname, 'src')],
+				exclude: [
+					'/node_modules/',
+					path.resolve(__dirname, "src/libs")
+				],
 				use: [
 					{
 						loader: 'babel-loader',
@@ -218,16 +188,9 @@ module.exports = {
 							formatter: require('eslint-friendly-formatter')
 						}
 					}
-				],
-				include: [
-	        path.resolve(__dirname, "src/*.js")
-	      ],
-				exclude: [
-					'/node_modules/',
-					path.resolve(__dirname, "src/libs")
 				]
 			},
-			{
+			/* {
 				test: path.resolve(__dirname, 'src/app.js'),
 				use: [
 					{
@@ -237,7 +200,7 @@ module.exports = {
 						}
 					}
 				]
-			},
+			}, */  //使用的是imports-loader来引入jquery,eslint会报错..  换用Webpack.ProvidePlugin来替换...
 			{
 				test: /\.html$/,
 				use: [
@@ -285,9 +248,9 @@ module.exports = {
 		new HtmlInlineChunkPlugin({
 			inlineChunks: ['manifest']
 		}),
-		// new Webpack.ProvidePlugin({
-		// 	$: 'jquery'
-		// }),
+		new Webpack.ProvidePlugin({
+		 	$: 'jquery'
+		}),
 		// new Webpack.optimize.UglifyJsPlugin(),
 
 		new Webpack.HotModuleReplacementPlugin(),

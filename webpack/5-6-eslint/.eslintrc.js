@@ -8,7 +8,10 @@ module.exports = {
     browser: true,
     node: true
   },
+	globals: {
+		$: true
+	},
   rules: {
-    
+    // 'eol-last': ['error', 'never']
   }
 }
