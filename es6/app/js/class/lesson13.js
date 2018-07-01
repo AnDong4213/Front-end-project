@@ -53,24 +53,61 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 		console.error('出错了', error);
 	}); */
 	
+	// 对象的状态不受外界影响。Promise对象代表一个异步操作，有三种状态：pending（进行中）、fulfilled（已成功）和rejected（已失败）
 	
-	const p1 = new Promise(function (resolve, reject) {
-		setTimeout(() => resolve('拉拉...'), 3000)
+	/* const p1 = new Promise(function (resolve, reject) {
+		console.log('p1')
+		// setTimeout(() => resolve('拉拉...'), 3000)
+		setTimeout(() => reject(new Error('fail')), 3000)
 	})
 
 	const p2 = new Promise(function (resolve, reject) {
-		setTimeout(() => resolve(p1), 1000)
+		console.log('p2')
+		setTimeout(() => resolve(p1), 10000)  // p1如果是resolve等10s后再执行，是reject的话，就不会等10s了
 	})
 
 	p2
 		.then(result => console.log(result))
-		.catch(error => console.log(error))
+		.catch(error => console.log(error)) */
+	// p1是一个 Promise，3 秒之后变为rejected。p2的状态在 10 秒之后改变，resolve方法返回的是p1。由于p2返回的是另一个 Promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者（p1）
 	
+	// 调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务
+	/* new Promise((resolve, reject) => {
+		resolve(1);
+		console.log(2);
+	  }).then(r => {
+		console.log(r);
+	}); */
+	// 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。
+	new Promise((resolve, reject) => {
+		return resolve(1);
+		console.log(2);
+	  }).then(r => {
+		console.log(r);
+	});
 	
-	
-	
-	
-	
+}
+
+{
+	/* new Promise((resolve, reject) => {
+		return reject('失败...');
+	  }).then(r => {
+		console.log(r);
+	}).
+	catch(err => {
+		console.log(err);
+	}) */
+	const promise = new Promise(function(resolve, reject) {
+		try {
+		  throw new Error('test-haha');
+		} catch(e) {
+		  reject(e);
+		}
+	});
+	promise.catch(function(error) {
+	console.log(error);
+	});
+	  
 }
 
 
