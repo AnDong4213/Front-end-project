@@ -3,7 +3,7 @@
   "warnings": [],
   "version": "3.12.0",
   "hash": "04511201d0c23d0e96c5",
-  "time": 419,
+  "time": 552,
   "publicPath": "./dist/",
   "assetsByChunkName": {
     "createPoint": "createPoint.chunk.js",
@@ -170,9 +170,8 @@
           "issuerId": 4,
           "issuerName": "./src/mindex.js",
           "profile": {
-            "factory": 5,
-            "building": 7,
-            "dependencies": 2
+            "factory": 7,
+            "building": 10
           },
           "failed": false,
           "errors": 0,
@@ -267,8 +266,9 @@
           "issuerId": 4,
           "issuerName": "./src/mindex.js",
           "profile": {
-            "factory": 6,
-            "building": 3
+            "factory": 8,
+            "building": 10,
+            "dependencies": 17
           },
           "failed": false,
           "errors": 0,
@@ -356,12 +356,12 @@
             2
           ],
           "assets": [],
-          "issuer": "D:\\Front-end-project\\webpack\\3-6\\src\\ma.js",
-          "issuerId": 3,
-          "issuerName": "./src/ma.js",
+          "issuer": "D:\\Front-end-project\\webpack\\3-6\\src\\mb.js",
+          "issuerId": 2,
+          "issuerName": "./src/mb.js",
           "profile": {
-            "factory": 4,
-            "building": 3
+            "factory": 18,
+            "building": 6
           },
           "failed": false,
           "errors": 0,
@@ -482,8 +482,8 @@
           "issuerId": 8,
           "issuerName": "multi lodash jquery",
           "profile": {
-            "factory": 41,
-            "building": 316
+            "factory": 61,
+            "building": 432
           },
           "failed": false,
           "errors": 0,
@@ -542,8 +542,8 @@
           "issuerId": 8,
           "issuerName": "multi lodash jquery",
           "profile": {
-            "factory": 41,
-            "building": 151
+            "factory": 61,
+            "building": 211
           },
           "failed": false,
           "errors": 0,
@@ -602,7 +602,7 @@
           "issuerId": 0,
           "issuerName": "./node_modules/_lodash@4.17.10@lodash/lodash.js",
           "profile": {
-            "factory": 21,
+            "factory": 15,
             "building": 1
           },
           "failed": false,
@@ -644,8 +644,8 @@
           "issuerId": 0,
           "issuerName": "./node_modules/_lodash@4.17.10@lodash/lodash.js",
           "profile": {
-            "factory": 21,
-            "building": 1
+            "factory": 15,
+            "building": 2
           },
           "failed": false,
           "errors": 0,
@@ -686,7 +686,7 @@
           "issuerId": null,
           "issuerName": null,
           "profile": {
-            "factory": 0,
+            "factory": 1,
             "building": 1
           },
           "failed": false,
@@ -749,9 +749,9 @@
           "issuerId": null,
           "issuerName": null,
           "profile": {
-            "factory": 18,
-            "building": 13,
-            "dependencies": 11
+            "factory": 15,
+            "building": 15,
+            "dependencies": 35
           },
           "failed": false,
           "errors": 0,
@@ -814,9 +814,9 @@
           "issuerId": null,
           "issuerName": null,
           "profile": {
-            "factory": 20,
-            "building": 11,
-            "dependencies": 14
+            "factory": 18,
+            "building": 14,
+            "dependencies": 37
           },
           "failed": false,
           "errors": 0,
@@ -882,8 +882,8 @@
       "issuerId": 8,
       "issuerName": "multi lodash jquery",
       "profile": {
-        "factory": 41,
-        "building": 316
+        "factory": 61,
+        "building": 432
       },
       "failed": false,
       "errors": 0,
@@ -942,8 +942,8 @@
       "issuerId": 8,
       "issuerName": "multi lodash jquery",
       "profile": {
-        "factory": 41,
-        "building": 151
+        "factory": 61,
+        "building": 211
       },
       "failed": false,
       "errors": 0,
@@ -1002,9 +1002,8 @@
       "issuerId": 4,
       "issuerName": "./src/mindex.js",
       "profile": {
-        "factory": 5,
-        "building": 7,
-        "dependencies": 2
+        "factory": 7,
+        "building": 10
       },
       "failed": false,
       "errors": 0,
@@ -1057,8 +1056,9 @@
       "issuerId": 4,
       "issuerName": "./src/mindex.js",
       "profile": {
-        "factory": 6,
-        "building": 3
+        "factory": 8,
+        "building": 10,
+        "dependencies": 17
       },
       "failed": false,
       "errors": 0,
@@ -1111,9 +1111,9 @@
       "issuerId": null,
       "issuerName": null,
       "profile": {
-        "factory": 20,
-        "building": 11,
-        "dependencies": 14
+        "factory": 18,
+        "building": 14,
+        "dependencies": 37
       },
       "failed": false,
       "errors": 0,
@@ -1144,7 +1144,7 @@
       "issuerId": 0,
       "issuerName": "./node_modules/_lodash@4.17.10@lodash/lodash.js",
       "profile": {
-        "factory": 21,
+        "factory": 15,
         "building": 1
       },
       "failed": false,
@@ -1186,8 +1186,8 @@
       "issuerId": 0,
       "issuerName": "./node_modules/_lodash@4.17.10@lodash/lodash.js",
       "profile": {
-        "factory": 21,
-        "building": 1
+        "factory": 15,
+        "building": 2
       },
       "failed": false,
       "errors": 0,
@@ -1228,9 +1228,9 @@
       "issuerId": null,
       "issuerName": null,
       "profile": {
-        "factory": 18,
-        "building": 13,
-        "dependencies": 11
+        "factory": 15,
+        "building": 15,
+        "dependencies": 35
       },
       "failed": false,
       "errors": 0,
@@ -1261,7 +1261,7 @@
       "issuerId": null,
       "issuerName": null,
       "profile": {
-        "factory": 0,
+        "factory": 1,
         "building": 1
       },
       "failed": false,
@@ -1288,12 +1288,12 @@
         2
       ],
       "assets": [],
-      "issuer": "D:\\Front-end-project\\webpack\\3-6\\src\\ma.js",
-      "issuerId": 3,
-      "issuerName": "./src/ma.js",
+      "issuer": "D:\\Front-end-project\\webpack\\3-6\\src\\mb.js",
+      "issuerId": 2,
+      "issuerName": "./src/mb.js",
       "profile": {
-        "factory": 4,
-        "building": 3
+        "factory": 18,
+        "building": 6
       },
       "failed": false,
       "errors": 0,
@@ -1332,3 +1332,6 @@
   "filteredModules": 0,
   "children": []
 }
+Webpack Bundle Analyzer is started at http://127.0.0.1:8888
+Use Ctrl+C to close it
+终止批处理操作吗(Y/N)? 终止批处理操作吗(Y/N)? 

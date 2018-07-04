@@ -1,5 +1,5 @@
 {
-	let log = (type) => {
+	/* let log = (type) => {
 		return function (target,name,descriptor) {
 			let src_method = descriptor.value;
 			descriptor.value = (...arg) => {
@@ -20,7 +20,7 @@
 	}
 	let ad = new AD()
 	ad.show()	
-	ad.click()
+	ad.click() */
 
 }
 
