@@ -7,9 +7,9 @@
 let test = new Test()
 document.body.innerHTML = test.a*/
 
-// import 'babel-polyfill';
+import 'babel-polyfill';
 // import {createSong} from './class/lesson17.2.js';
-import './class/lesson13.js';
+import './class/lesson15-1.js';
 
 
 

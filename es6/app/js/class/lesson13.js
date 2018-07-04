@@ -83,7 +83,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 		return resolve(1);
 		console.log(2);
 	  }).then(r => {
-		console.log(r);
+		// console.log(r);
 	});
 	
 }
@@ -97,7 +97,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	catch(err => {
 		console.log(err);
 	}) */
-	const promise = new Promise(function(resolve, reject) {
+	/* const promise = new Promise(function(resolve, reject) {
 		try {
 		  throw new Error('test-haha');
 		} catch(e) {
@@ -105,9 +105,12 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 		}
 	});
 	promise.catch(function(error) {
-	console.log(error);
-	});
-	  
+		console.log(error);
+	}); */
+
+	// Promise.prototype.catch方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数。
+	// Promise.prototype.finally()  finally方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
+
 }
 
 
@@ -131,20 +134,21 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 		console.log(9)
 	  }
 	  this.hihi = function() {
-		 console.log(this.price)
+		console.log(this.price)
 	  }
 	}
 	function Food(name, price,category) {
-		Product.call(this,name, price)
+		// Product.call(this,name, price)
+		Product.apply(this, arguments)
 		this.category = category
 	}
 	let haha = new Food('baicai',20,'shucai')
 	console.log(haha.category) //  shucai
 	haha.hihi() // 20
 	haha.hehe()  // 9
-}
+} */
 
-{
+/* {
 	let animals = [
 		{species: 'Lion', name: 'King'},{species: 'Whale', name: 'Fail'}
 	]
@@ -152,14 +156,14 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	for(let i=0; i<animals.length;i++) {
 		(function(i){
 			// console.log(this)  // {species: "Lion", name: "King"}
-			this.print = function() {
+			//this.print = function() {
 				// console.log(this)  // {species: "Whale", name: "Fail", print: ƒ}
 				console.log('#' + i  + ' ' + this.species + ': ' + this.name)
-			}
-			this.print()
+			//}
+			//this.print()
 		}).call(animals[i], i)
 	}
-}
+} */
 
 {
 	// 使用call方法调用函数并且指定上下文的'this'
@@ -169,7 +173,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	}
 	let i = {person: 'Douglas Crockford', role: 'Javascript Developer'}
 	greet.call(i)
-} */
+}
 
 /* {
 	let ajax = function(num) {
@@ -191,6 +195,14 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	})
 } */
 
+// Promise.all方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+/* const p = Promise.all([p1, p2, p3]);
+上面代码中，Promise.all方法接受一个数组作为参数，p1、p2、p3都是 Promise 实例，如果不是，就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例，再进一步处理。（Promise.all方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。）
+
+p的状态由p1、p2、p3决定，分成两种情况。
+（1）只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。
+（2）只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。 */
+
 /* {
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
@@ -205,22 +217,34 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 			}
 		})
 	}
-	
-	function showImgs(imgs) {
-		imgs.forEach((img) => {
-			document.body.appendChild(img)
-		})
-	}
-	
+	// function showImgs(imgs) {
+	// 	imgs.forEach((img) => {
+	// 		document.body.appendChild(img)
+	// 	})
+	// }
+	// Promise.all([
+	// 	loadImg('https://gma.alicdn.com/bao/uploaded/i4/17318753/TB2MsHEopuWBuNjSszbXXcS7FXa_!!0-saturn_solar.jpg_130x130.jpg_.webp'),
+	// 	loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
+	// 	loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
+	// ]).then(showImgs)
+
 	Promise.all([
 		loadImg('https://gma.alicdn.com/bao/uploaded/i4/17318753/TB2MsHEopuWBuNjSszbXXcS7FXa_!!0-saturn_solar.jpg_130x130.jpg_.webp'),
 		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
-		loadImg('https://gtd.alicdn.com/tfscom/TB1LwhKa2NNTKJjSspfSuvXIFXa')
-	]).then(showImgs)
-	
+		loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
+	])
+	.then(imgs => {
+		console.log(imgs)
+		imgs.forEach(img => {
+			document.body.appendChild(img)
+		})
+	})
+	.catch(err => {
+		console.log(err)
+	})
 } */
 
-/* {
+{
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
 			let img = document.createElement('img')
@@ -241,11 +265,11 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	}
 	
 	Promise.race([
-		loadImg('https://gtd.alicdn.com/tfscom/TB1s4OXX4WYBuNjy1zkwu0GGpXa'),
+		loadImg('https://gma.alicdn.com/bao/uploaded/i4/17318753/TB2MsHEopuWBuNjSszbXXcS7FXa_!!0-saturn_solar.jpg_130x130.jpg_.webp'),
 		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
-		loadImg('https://gtd.alicdn.com/ tfscom/TB1gjlgXY1YBuNjSszewu1blFXa')
+		loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
 	]).then(showImgs)
-} */
+}
 
 
 
