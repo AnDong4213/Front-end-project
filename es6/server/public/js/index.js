@@ -9615,199 +9615,167 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-// Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
-// 执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 {
+	var Point = function () {
+		function Point(x, y) {
+			_classCallCheck(this, Point);
 
-	/* function* helloWorldGenerator() {
- 	yield 'hello';
- 	yield  123 + 456;
- 	yield 'world';
- 	return 'ending'
- }
- let hw = helloWorldGenerator()
- console.log(hw.next())
- console.log(hw.next())
- console.log(hw.next().value)
- console.log(hw.next()) */
+			this.x = x;
+			this.y = y;
+		}
 
-	/* function* f() {
- 	console.log('执行...')
- }
- let generator = f()
- setTimeout(function() {
- 	generator.next()
- }, 2000) */
+		_createClass(Point, [{
+			key: 'para',
+			value: function para() {
+				console.log(this.x);
+			}
+		}, {
+			key: 'ha',
+			value: function ha() {
+				console.log(this.y);
+			}
+			// Class的静态方法  类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
 
-	/* function* demo() {
- 	console.log('hello' + (yield 123));
- 	return 'ending';
- }
- console.log(demo().next());  // {value: 123, done: false}
- console.log(demo().next());  // {value: 123, done: false}
- console.log(demo().next());  // {value: 123, done: false}
- console.log(demo().next()); */ // {value: 123, done: false}
+		}, {
+			key: 'longName',
+			get: function get() {
+				return '安乐' + this.x;
+			},
+			set: function set(value) {
+				this.x = value;
+			}
+		}], [{
+			key: 'jt',
+			value: function jt() {
+				return 'Hello';
+			}
+		}]);
 
-	// yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
-	/* function foo(a,b) {
- 	console.log(a,b)
- }
- function* demo() {
- 	foo(yield 'haha', yield 'hehe'); // OK
- 	let input = yield; // OK
- }
- console.log(demo().next());  // {value: "haha", done: false}	
- console.log(demo().next()); */ // {value: "haha", done: false}
+		return Point;
+	}();
 
+	Object.assign(Point.prototype, {
+		he: function he() {
+			console.log(this.y);
+		}
+	});
+	var aa = new Point('HH', 'KK');
+	/* aa.he()  // KK
+ aa.para() // HH
+ console.log(aa.y) */ // KK
+	/* console.log(aa.longName)  // 安乐HH
+ aa.longName = '解决'
+ console.log(aa.longName) */ // 安乐解决
+
+	// 构造函数的prototype属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。
+	// console.log(aa.para === Point.prototype.para)  // true
+	// prototype对象的constructor属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
+	// console.log(Point.prototype.constructor === Point)  // true
+
+	// console.log(Object.keys(Point.prototype))  // ["he"]
+	// console.log(Object.getOwnPropertyNames(Point.prototype))  // (4) ["constructor", "para", "ha", "he"]
+
+	// console.log(Point.jt())
+	// 如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
+	// console.log(aa.jt())  // Uncaught TypeError: aa.jt is not a function
 }
 
 {
-	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
-	/* function* f() {
- 	for (let i=0; true; i++) {
- 		let reset = yield i;
- 		if (reset) {i = -8}
+
+	/* class Tea {
+ 	constructor (x,y) {
+ 		this.x = x
+ 		this.y = y
+ 	}
+ 	// 还可以看出，静态方法可以与非静态方法重名。
+ 	ha() {
+ 		console.log(this.x)
+ 	}
+ 	static ha() {
+ 		console.log('this.y')  // this.y
+ 		console.log(this.y)  // undefined
+ 	}
+ 	static he() {
+ 		this.ha()
  	}
  }
- let g = f()
- console.log(g.next());  // {value: 0, done: false}
- console.log(g.next());  // {value: 1, done: false}
- console.log(g.next(true));  // {value: -7, done: false}
- console.log(g.next()); */ // {value: -6, done: false}
+ // 为Tea类定义了一个静态属性yy。
+ // 目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
+ Tea.yy = 'uu'
+ let tea = new Tea('MM','NN')
+ tea.ha()
+ Tea.he() */
 
-	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为。
-	/* function* foo(x) {
- 	let y = 2 * (yield (x+1));
- 	let z = yield (y / 3);
- 	return (x + y + z);
- } */
-	/* let a = foo(5)
- console.log(a.next())  // {value: 6, done: false}
- console.log(a.next())  // {value: NaN, done: false}
- console.log(a.next())  // {value: NaN, done: true}
- console.log(a.next()) */ // {value: undefined, done: true}
-	// 第二次运行next方法的时候不带参数，导致 y 的值等于2 * undefined（即NaN），除以 3 以后还是NaN，因此返回对象的value属性也等于NaN。第三次运行Next方法的时候不带参数，所以z等于undefined，返回对象的value属性等于5 + NaN + undefined，即NaN。
-
-	/* let b = foo(5)
- console.log(b.next())  // {value: 6, done: false}
- console.log(b.next(12))  // {value: 8, done: false}
- console.log(b.next(13)) */ // {value: 42, done: true}
-	// 由于next方法的参数表示上一个yield表达式的返回值，所以在第一次使用next方法时，传递参数是无效的。V8 引擎直接忽略第一次使用next方法时的参数，只有从第二次使用next方法开始，参数才是有效的。从语义上讲，第一个next方法用来启动遍历器对象，所以不用带有参数。
+	// 父类的静态方法，可以被子类继承。
+	// 静态方法也是可以从super对象上调用的。
 
 }
 
 {
+	var _Point = function () {
+		function _Point(age, name) {
+			_classCallCheck(this, _Point);
 
-	/* function* dataConsumer() {
- 	console.log('Started');
- 	console.log(`1. ${yield}`);
- 	console.log(`2. ${yield}`);
- 	return 'result';
- }
- let aa = dataConsumer()
- console.log(aa.next())
- console.log(aa.next('a'))
- console.log(aa.next('b')) */
+			this.age = age;
+			this.name = name;
+		}
 
-}
+		_createClass(_Point, [{
+			key: 'method',
+			value: function method() {
+				console.log('method');
+			}
+		}], [{
+			key: 'jing',
+			value: function jing() {
+				console.log('jing');
+			}
+		}]);
 
-{
-	// for...of循环可以自动遍历 Generator 函数时生成的Iterator对象，且此时不再需要调用next方法。
-	/* function* foo() {
- 	yield 1;
- 	yield 2;
- 	yield 3;
- 	yield 4;
- 	yield 5;
- 	return 6;
- }
- for (let v of foo()) {
- 	console.log(v)  // 1,2,3,4,5
- } */
-	// 使用for...of循环，依次显示 5 个yield表达式的值。这里需要注意，一旦next方法的返回对象的done属性为true，for...of循环就会中止，且不包含该返回对象，所以上面代码的return语句返回的6，不包括在for...of循环之中。
+		return _Point;
+	}();
+	// 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+	// super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
+	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+	// 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
 
-	/* function* fibonacci() {
- 	let [prev, curr] = [0, 1];
- 	for (;;) {
- 	  // console.log(prev/curr);
- 	  yield curr;
- 	  [prev, curr] = [curr, prev + curr];
- 	}
-   }
-   for (let n of fibonacci()) {
- 	if (n > 10000) break;
- 	console.log(n);
- } */
 
-	/* let m = 1;
- for (;;) {
- 	m++;
- 	if (m>34) break;
- 	console.log(m)
- } */
+	var aPoint = function (_Point2) {
+		_inherits(aPoint, _Point2);
 
-	// 除了for...of循环以外，扩展运算符（...）、解构赋值和Array.from方法内部调用的，都是遍历器接口。这意味着，它们都可以将 Generator 函数返回的 Iterator 对象，作为参数。  扩展运算符...
-}
+		function aPoint(age, name, color) {
+			_classCallCheck(this, aPoint);
 
-{
+			var _this = _possibleConstructorReturn(this, (aPoint.__proto__ || Object.getPrototypeOf(aPoint)).call(this, age, name));
 
-	// ES2017 标准引入了 async 函数，使得异步操作变得更加方便。  async 函数是什么？一句话，它就是 Generator 函数的语法糖。
-	/* const fs = require('fs')
- const readFile = function (fileName) {
- 	return new Promise(function (resolve,reject) {
- 		fs.readFile(fileName, function (error,data) {
- 			if (error) return reject(erroe);
- 			resolve(data.toString())
- 		})
- 	})
- } */
-	/* const gen = function* () {
- 	yield readFile('./a.txt');
- 	yield readFile('./test.js')
- }
- let a = gen()
- a.next().value.then((data) => {
- 	console.log(data)
- })
- a.next().value.then((data) => {
- 	console.log(data)
- }) */
+			_this.color = color;
+			return _this;
+		}
 
-	// 写成async函数，就是下面这样。
-	/* const asyncReadFile = async function() {
- 	return await readFile('./a.txt');
- 	// return await readFile('./test.js');
- }
- asyncReadFile().then((item) => {
- 	console.log(item)
- }) */
+		_createClass(aPoint, [{
+			key: 'haha',
+			value: function haha() {
+				_get(aPoint.prototype.__proto__ || Object.getPrototypeOf(aPoint.prototype), 'method', this).call(this);
+			}
+		}]);
 
-}
+		return aPoint;
+	}(_Point);
 
-{
-
-	/* function timeout(ms) {
- 	return new Promise((resolve,reject) => {
- 		setTimeout(resolve,ms)
- 	})
- }
- async function asyncPrint(value, ms) {
- 	await timeout(ms);
- 	console.log(value);
- }
- asyncPrint('hello world', 2000) */
-
-	var f = async function f() {
-		try {
-			await Promise.reject('出错了');
-		} catch (e) {}
-		return await Promise.resolve('万港...');
-	};
-
-	f().then(function (v) {
-		return console.log(v);
-	}); // 万港...
+	var b = new aPoint(12, 'anle', 'red');
+	console.log(b.age); // 12
+	b.haha(); // method
+	aPoint.jing(); // jing
 }
 
 /***/ })
