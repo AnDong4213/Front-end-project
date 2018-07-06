@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HappyPack = require('happypack')
 
 const env = require('../config/prod.env')
 
@@ -28,6 +29,15 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    // HappyPack后来加的...
+    new HappyPack({
+      id: 'vue',
+      loaders: [{
+        loader: 'vue-loader',
+        option: require('./vue-loader.conf.js')
+      }]
+    }),
+    // 在src文件夹下的dll目录里...
     new webpack.DllReferencePlugin({
       manifest: require('../src/dll/ui.manifest.json')
     }),
