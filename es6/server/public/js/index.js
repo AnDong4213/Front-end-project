@@ -4006,7 +4006,11 @@ module.exports = __webpack_require__(126);
 
 __webpack_require__(127);
 
-__webpack_require__(330);
+var _lottery = __webpack_require__(330);
+
+var _lottery2 = _interopRequireDefault(_lottery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 127 */
@@ -9614,169 +9618,6 @@ module.exports = function (regExp, replace) {
 
 "use strict";
 
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-{
-	var Point = function () {
-		function Point(x, y) {
-			_classCallCheck(this, Point);
-
-			this.x = x;
-			this.y = y;
-		}
-
-		_createClass(Point, [{
-			key: 'para',
-			value: function para() {
-				console.log(this.x);
-			}
-		}, {
-			key: 'ha',
-			value: function ha() {
-				console.log(this.y);
-			}
-			// Class的静态方法  类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
-
-		}, {
-			key: 'longName',
-			get: function get() {
-				return '安乐' + this.x;
-			},
-			set: function set(value) {
-				this.x = value;
-			}
-		}], [{
-			key: 'jt',
-			value: function jt() {
-				return 'Hello';
-			}
-		}]);
-
-		return Point;
-	}();
-
-	Object.assign(Point.prototype, {
-		he: function he() {
-			console.log(this.y);
-		}
-	});
-	var aa = new Point('HH', 'KK');
-	/* aa.he()  // KK
- aa.para() // HH
- console.log(aa.y) */ // KK
-	/* console.log(aa.longName)  // 安乐HH
- aa.longName = '解决'
- console.log(aa.longName) */ // 安乐解决
-
-	// 构造函数的prototype属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。
-	// console.log(aa.para === Point.prototype.para)  // true
-	// prototype对象的constructor属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
-	// console.log(Point.prototype.constructor === Point)  // true
-
-	// console.log(Object.keys(Point.prototype))  // ["he"]
-	// console.log(Object.getOwnPropertyNames(Point.prototype))  // (4) ["constructor", "para", "ha", "he"]
-
-	// console.log(Point.jt())
-	// 如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
-	// console.log(aa.jt())  // Uncaught TypeError: aa.jt is not a function
-}
-
-{
-
-	/* class Tea {
- 	constructor (x,y) {
- 		this.x = x
- 		this.y = y
- 	}
- 	// 还可以看出，静态方法可以与非静态方法重名。
- 	ha() {
- 		console.log(this.x)
- 	}
- 	static ha() {
- 		console.log('this.y')  // this.y
- 		console.log(this.y)  // undefined
- 	}
- 	static he() {
- 		this.ha()
- 	}
- }
- // 为Tea类定义了一个静态属性yy。
- // 目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
- Tea.yy = 'uu'
- let tea = new Tea('MM','NN')
- tea.ha()
- Tea.he() */
-
-	// 父类的静态方法，可以被子类继承。
-	// 静态方法也是可以从super对象上调用的。
-
-}
-
-{
-	var _Point = function () {
-		function _Point(age, name) {
-			_classCallCheck(this, _Point);
-
-			this.age = age;
-			this.name = name;
-		}
-
-		_createClass(_Point, [{
-			key: 'method',
-			value: function method() {
-				console.log('method');
-			}
-		}], [{
-			key: 'jing',
-			value: function jing() {
-				console.log('jing');
-			}
-		}]);
-
-		return _Point;
-	}();
-	// 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
-	// super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
-	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
-	// 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
-
-
-	var aPoint = function (_Point2) {
-		_inherits(aPoint, _Point2);
-
-		function aPoint(age, name, color) {
-			_classCallCheck(this, aPoint);
-
-			var _this = _possibleConstructorReturn(this, (aPoint.__proto__ || Object.getPrototypeOf(aPoint)).call(this, age, name));
-
-			_this.color = color;
-			return _this;
-		}
-
-		_createClass(aPoint, [{
-			key: 'haha',
-			value: function haha() {
-				_get(aPoint.prototype.__proto__ || Object.getPrototypeOf(aPoint.prototype), 'method', this).call(this);
-			}
-		}]);
-
-		return aPoint;
-	}(_Point);
-
-	var b = new aPoint(12, 'anle', 'red');
-	console.log(b.age); // 12
-	b.haha(); // method
-	aPoint.jing(); // jing
-}
 
 /***/ })
 /******/ ]);
