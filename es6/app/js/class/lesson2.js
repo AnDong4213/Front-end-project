@@ -180,8 +180,38 @@
 	  console.log(" is " + value);
 	  aa.push(value)
 	}
-	console.log(aa)  //  (2) ["hello", "world"]
+	// console.log(aa)  //  (2) ["hello", "world"]
+	// console.log(map.size)  // 2
+	// console.log(map)
+	// Map(2) {"first" => "hello", "second" => "world"}
+	/* size:2
+    __proto__:Map
+	[[Entries]]:Array(2)
+	0:{"first" => "hello"}
+	1:{"second" => "world"}
+	length: 2 */
 	
+	for (let kk of map) {
+		console.log(kk) // (2) ["first", "hello"]  (2) ["second", "world"]
+	}
+}
+
+{
+	// console.log(Map)  // ƒ Map() { [native code] }
+	// 作为构造函数，Map 也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。
+	/* const map = new Map([
+		['name', '张三'],
+		['title', 'Author']
+	]);
+	console.log(map.has('name'))  // true
+	console.log(map.get('name')) */  // 张三
+
+	// 只有对同一个对象的引用，Map 结构才将其视为同一个键。这一点要非常小心
+	const map = new Map();
+	map.set(['a'], 555);
+	console.log(map.get(['a'])) // undefined
+	// set和get方法，表面是针对同一个键，但实际上这是两个值，内存地址是不一样的，因此get方法无法读取该键，返回undefined。
+
 }
 
 

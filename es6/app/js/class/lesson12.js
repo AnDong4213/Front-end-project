@@ -1,17 +1,30 @@
-{
+/* {
 	class Parent {
 		constructor(name='haha') {
 			this.name = name
 		}
+		haha() {
+			this.hehe()
+			Parent.hehe()
+		}
+		hehe() {
+			// console.log('hehe')
+			console.log(this)  // Parent {name: "andong"}
+		}
+		static hehe() {
+			console.log('我是静态方法hehe...')
+		}
 	}
 	let v_child = new Parent('andong')
-	console.log(v_child)
-	console.log(v_child.name)  //  andong
-
-}
+	// console.log(v_child)
+	//console.log(v_child.name)  //  andong
+	// v_child.hehe();
+	v_child.haha();
+} */
 
 
 {
+	console.log(new Array(1,2))
 	class Parent {
 		constructor(name='haha') {
 			this.name = name
@@ -30,13 +43,13 @@
 		}
 	}
 	let child = new Child('mm','nn')
-	console.log(child.name)	
+	console.log(child.name)	 // 如果super(name)里有name就是mm，不传name就是haha
 	console.log(child.type)
 	child.hehe()
 	child.yy()
 }
 
-{
+/* {
 	// getter, setter
 	class Parent {
 		constructor(name='haha') {
@@ -69,11 +82,7 @@
 	Parent.type = 'haha'   // 静态属性的定义方法...
 	Parent.tell()  // tell
 	console.log(Parent.type)
-}
-
-{
-	
-}
+} */
 
 
 

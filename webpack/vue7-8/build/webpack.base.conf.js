@@ -19,8 +19,10 @@ const createLintingRule = () => ({
   }
 })
 
+// console.log(...(config.dev.useEslint ? [createLintingRule()] : []))
+
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, '../'),  // 运行环境的上下文...
   entry: {
     app: './src/main.js'
   },
