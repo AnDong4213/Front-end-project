@@ -90,6 +90,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
 {
@@ -421,6 +423,38 @@ function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 }
 
 {
+	var strMapToObj = function strMapToObj(strMap) {
+		var obj = Object.create(null);
+		var _iteratorNormalCompletion3 = true;
+		var _didIteratorError3 = false;
+		var _iteratorError3 = undefined;
+
+		try {
+			for (var _iterator3 = strMap[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+				var _step3$value = _slicedToArray(_step3.value, 2),
+				    k = _step3$value[0],
+				    v = _step3$value[1];
+
+				obj[k] = v;
+			}
+		} catch (err) {
+			_didIteratorError3 = true;
+			_iteratorError3 = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion3 && _iterator3.return) {
+					_iterator3.return();
+				}
+			} finally {
+				if (_didIteratorError3) {
+					throw _iteratorError3;
+				}
+			}
+		}
+
+		return obj;
+	};
+
 	// console.log(Map)  // ƒ Map() { [native code] }
 	// 作为构造函数，Map 也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。
 	/* const map = new Map([
@@ -435,6 +469,20 @@ function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 	_map.set(['a'], 555);
 	console.log(_map.get(['a'])); // undefined
 	// set和get方法，表面是针对同一个键，但实际上这是两个值，内存地址是不一样的，因此get方法无法读取该键，返回undefined。
+
+	var map0 = new Map().set(1, 'a').set(2, 'b').set(3, 'c');
+	// console.log([...map0])
+	var map1 = new Map([].concat(_toConsumableArray(map0)).filter(function (_ref6) {
+		var _ref7 = _slicedToArray(_ref6, 2),
+		    k = _ref7[0],
+		    v = _ref7[1];
+
+		return k < 3;
+	}));
+	console.log(map1);
+
+	var myMap = new Map().set('yes', true).set('no', false);
+	console.log(strMapToObj(myMap));
 }
 
 /***/ })

@@ -212,6 +212,29 @@
 	console.log(map.get(['a'])) // undefined
 	// set和get方法，表面是针对同一个键，但实际上这是两个值，内存地址是不一样的，因此get方法无法读取该键，返回undefined。
 
+	const map0 = new Map()
+		.set(1, 'a')
+		.set(2, 'b')
+		.set(3, 'c')
+	// console.log([...map0])
+	const map1 = new Map(
+		[...map0].filter(([k, v]) => k < 3)
+	);
+	console.log(map1)
+
+	function strMapToObj(strMap) {
+		let obj = Object.create(null);
+		for (let [k,v] of strMap) {
+		  obj[k] = v;
+		}
+		return obj;
+	  }
+	  
+	  const myMap = new Map()
+		.set('yes', true)
+		.set('no', false);
+	  console.log(strMapToObj(myMap))
+
 }
 
 
