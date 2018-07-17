@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        todes: [
+        todos: [
             {
                 id: 1,
                 text: 'first job'
