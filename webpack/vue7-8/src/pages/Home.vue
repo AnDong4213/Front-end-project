@@ -13,8 +13,12 @@
 
             }
         },
-        craeted () {
-
+        created () {
+            /* let newtodo = {
+                text: '123',
+                id: '99'
+            }
+            console.log({...newtodo}) */
         }
     }
 </script>

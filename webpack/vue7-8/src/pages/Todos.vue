@@ -7,7 +7,7 @@
         <ul>
             <li v-for="todo in todos" :key="todo.id">
                 {{ todo.text }}
-                <span>删除</span>
+                <span @click="delTodo(todo)">删除</span>
             </li>
         </ul>
     </div>
@@ -27,9 +27,12 @@
             ...mapGetters(['todos'])
         },
         methods: {
-            ...mapActions(['addTodo, delTodo']),
-            createTodo (todo) {
-                
+            ...mapActions(['addTodo', 'delTodo']),
+            createTodo () {
+                this.addTodo({
+                    ...this.newtodo
+                })
+                this.newtodo.text = ''
             }
         }
     }
