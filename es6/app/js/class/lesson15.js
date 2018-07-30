@@ -1,4 +1,4 @@
-/*  {
+{
 	let tell = function* (){
 		yield 'a'		
 		yield 'b'
@@ -10,9 +10,8 @@
 	console.log(k.next().value)
 	console.log(k.next())   //  {value: "b", done: false}
 	console.log(k.next().value)  //  c
-	console.log(k.next()) 
-
-} */ 
+	console.log(k.next())
+}
 
 /* {
 	let obj = {}, a = [{a:'a'},{d:'d'}],b = {b:'b'}, c = {c:'c'}
@@ -24,9 +23,9 @@
 	for (let value of obj) {
 		console.log(value)
 	}
-}
+} */
 
-{
+/* {
 	let state = function* (){
 		while(1) {
 			yield 'A';		
@@ -55,7 +54,9 @@
 	let stat = residue(5), btn = document.createElement('button')
 	btn.id = 'start'
 	btn.textContent = '抽奖'
-	btn.style.color = '#f00'
+	btn.style.color = '#000'
+	btn.style.border = 'none'
+	btn.style.backgroundColor = 'pink'
 	document.body.appendChild(btn)
 	document.getElementById('start').addEventListener('click',function(){
 		stat.next()
@@ -64,7 +65,7 @@
 
 {
 	// 长轮询。。。
-	let ajax = function* (){
+	let ajax = function* () {
 		yield new Promise((resolve,reject) => {
 			setTimeout(() => {
 				resolve({code: 200})

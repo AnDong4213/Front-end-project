@@ -1,4 +1,4 @@
-/* {
+{
 	class Parent {
 		constructor(name='haha') {
 			this.name = name
@@ -20,7 +20,7 @@
 	//console.log(v_child.name)  //  andong
 	// v_child.hehe();
 	v_child.haha();
-} */
+}
 
 
 {

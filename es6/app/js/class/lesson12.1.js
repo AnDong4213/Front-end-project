@@ -50,7 +50,7 @@
 
 {
 
-	/* class Tea {
+	class Tea {
 		constructor (x,y) {
 			this.x = x
 			this.y = y
@@ -67,13 +67,12 @@
 			this.ha()
 		}
 	}
-	// 为Tea类定义了一个静态属性yy。
+	// 为Tea类定义了一个静态属性yy
 	// 目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
-	Tea.yy = 'uu'
+	/* Tea.yy = 'uu'
 	let tea = new Tea('MM','NN')
 	tea.ha()
 	Tea.he() */
-
 	// 父类的静态方法，可以被子类继承。
 	// 静态方法也是可以从super对象上调用的。
 
@@ -86,12 +85,15 @@
 		constructor(age,name) {
 			this.age = age
 			this.name = name
+			this.func = function() {
+				console.log(99)
+			}
 		}
 		method() {
 			console.log('method')
 		}
 		static jing() {
-			console.log('jing')
+			console.log('jing-oo')
 		}
 	}
 // 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
@@ -105,6 +107,7 @@
 		}
 		haha() {
 			super.method()
+			super.func()
 		}
 	}
 	let b = new aPoint(12,'anle','red')

@@ -155,6 +155,8 @@
 	console.log(entries.next().value)
 	console.log(entries.next().value)  // [2, "c"]
 	console.log(entries.next().value)  // undefined
+
+	console.log(new Array(4).fill(9))
 	
 }
 

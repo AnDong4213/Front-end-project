@@ -160,7 +160,14 @@
 	};
 	let {id, status, data: number} = jsonData;
 	console.log(id, status, number);  //  42 "OK" (2) [867, 5309]
-	
+
+	/* 另外，Map 和 Set 数据结构有一个has方法，需要注意与includes区分。
+    Map 结构的has方法，是用来查找键名的，比如Map.prototype.has(key)、WeakMap.prototype.has(key)、Reflect.has(target, propertyKey)。
+	Set 结构的has方法，是用来查找值的，比如Set.prototype.has(value)、WeakSet.prototype.has(value)。 */
+	/* 数组实例的 includes()
+    Array.prototype.includes方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。ES2016 引入了该方法。 */
+	console.log('.............................................................................................')
+	console.log([9,8,7].includes(7))
 	//  （6）遍历 Map 结构  任何部署了 Iterator 接口的对象，都可以用for...of循环遍历。Map 结构原生支持 Iterator 接口，配合变量的解构赋值，获取键名和键值就非常方便。
 	/* let arr = ['A', 'BBO', 'CCN']
 	for (let [b,,a] of arr) {

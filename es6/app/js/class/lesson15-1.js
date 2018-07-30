@@ -24,13 +24,17 @@
 	}, 2000) */
 
 	/* function* demo() {
-		console.log('hello' + (yield 123));
-		return 'ending';
+		console.log('hello--' + (yield 123));
+		return 'ending'
 	}
-	console.log(demo().next());  // {value: 123, done: false}
-	console.log(demo().next());  // {value: 123, done: false}
-	console.log(demo().next());  // {value: 123, done: false}
-	console.log(demo().next()); */  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// 如果不赋值，就是上面的结果... generatot函数必须let de = demo()
+	let de = demo()
+	console.log(de.next())  // {value: 123, done: false}
+	console.log(de.next()) */  // hello--undefined  {value: "ending", done: true}
 	
 	// yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
 	/* function foo(a,b) {
@@ -40,13 +44,18 @@
 		foo(yield 'haha', yield 'hehe'); // OK
 		let input = yield; // OK
 	}
-	console.log(demo().next());  // {value: "haha", done: false}	
-	console.log(demo().next()); */  // {value: "haha", done: false}
+	// console.log(demo().next());  // {value: "haha", done: false}	
+	// console.log(demo().next());  // {value: "haha", done: false}
+	let de = demo()
+	console.log(de.next());
+	console.log(de.next());
+	console.log(de.next());
+	console.log(de.next()); */
 
 }
 
 {
-	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
+	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
 	/* function* f() {
 		for (let i=0; true; i++) {
 			let reset = yield i;
@@ -56,20 +65,21 @@
 	let g = f()
 	console.log(g.next());  // {value: 0, done: false}
 	console.log(g.next());  // {value: 1, done: false}
+	console.log(g.next());  // {value: 2, done: false}
 	console.log(g.next(true));  // {value: -7, done: false}
 	console.log(g.next()); */  // {value: -6, done: false}
 
-	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为。
+	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为
 	/* function* foo(x) {
 		let y = 2 * (yield (x+1));
 		let z = yield (y / 3);
 		return (x + y + z);
-	} */
-	/* let a = foo(5)
+	}
+	let a = foo(5)
 	console.log(a.next())  // {value: 6, done: false}
 	console.log(a.next())  // {value: NaN, done: false}
 	console.log(a.next())  // {value: NaN, done: true}
-	console.log(a.next()) */          // {value: undefined, done: true}
+	console.log(a.next()) */         // {value: undefined, done: true}
 	// 第二次运行next方法的时候不带参数，导致 y 的值等于2 * undefined（即NaN），除以 3 以后还是NaN，因此返回对象的value属性也等于NaN。第三次运行Next方法的时候不带参数，所以z等于undefined，返回对象的value属性等于5 + NaN + undefined，即NaN。
 
 	/* let b = foo(5)
@@ -134,7 +144,6 @@
 }
 
 {
-
 	// ES2017 标准引入了 async 函数，使得异步操作变得更加方便。  async 函数是什么？一句话，它就是 Generator 函数的语法糖。
 	/* const fs = require('fs')
 	const readFile = function (fileName) {
@@ -165,7 +174,6 @@
 	asyncReadFile().then((item) => {
 		console.log(item)
 	}) */
-
 }
 
 {
@@ -181,7 +189,7 @@
 	}
 	asyncPrint('hello world', 2000) */
 
-	async function f() {
+	/* async function f() {
 		try {
 		  await Promise.reject('出错了');
 		} catch(e) {
@@ -189,8 +197,7 @@
 		}
 		return await Promise.resolve('万港...');
 	  }
-	  
-	  // f().then(v => console.log(v)) // 万港...
+	  f().then(v => console.log(v)) */   // 万港...
 
 }
 
