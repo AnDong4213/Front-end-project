@@ -46,6 +46,89 @@ class Base {
         }
     }
 
+    setOmit(omit) {
+        let self=this;
+        self.omit.clear();
+        for(let [index,item] of omit.entries()){
+            self.omit.set(index,item)
+        }
+        $(self.omit_el).each(function(index,item){
+            $(item).text(self.omit.get(index))
+        });
+    }
+
+    setOpenCode(code){
+        let self=this;
+        self.open_code.clear();
+        for(let item of code.values()){
+          self.open_code.add(item);
+        }
+        self.updateOpenCode&&self.updateOpenCode.call(self,code);
+    }
+
+    toggleCodeActive(e){
+        let self=this;
+        let $cur=$(e.currentTarget);
+        $cur.toggleClass('btn-boll-active');
+        self.getCount();
+    }
+
+    changePlayNav(e){
+        let self=this;
+        let $cur=$(e.currentTarget);
+        $cur.addClass('active').siblings().removeClass('active');
+        self.cur_play=$cur.attr('desc').toLocaleLowerCase();
+        $('#zx_sm span').html(self.play_list.get(self.cur_play).tip);
+        $('.boll-list .btn-boll').removeClass('btn-boll-active');
+        self.getCount();
+    }
+
+    assistHandle(e){
+        e.preventDefault();
+        let self=this;
+        let $cur=$(e.currentTarget);
+        let index=$cur.index();
+        $('.boll-list .btn-boll').removeClass('btn-boll-active');
+        if(index===0){
+          $('.boll-list .btn-boll').addClass('btn-boll-active');
+        }
+        if(index===1){
+          $('.boll-list .btn-boll').each(function(i,t){
+            if(t.textContent-5>0){
+              $(t).addClass('btn-boll-active')
+            }
+          })
+        }
+        if(index===2){
+          $('.boll-list .btn-boll').each(function(i,t){
+            if(t.textContent-6<0){
+              $(t).addClass('btn-boll-active')
+            }
+          })
+        }
+        if(index===3){
+          $('.boll-list .btn-boll').each(function(i,t){
+            if(t.textContent%2==1){
+              $(t).addClass('btn-boll-active')
+            }
+          })
+        }
+        if(index===4){
+          $('.boll-list .btn-boll').each(function(i,t){
+            if(t.textContent%2==0){
+              $(t).addClass('btn-boll-active')
+            }
+          })
+        }
+        self.getCount();
+    }
+
+    getName(){
+        return this.name
+    }
+
+
+ 
 }
 
 
