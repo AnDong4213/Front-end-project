@@ -9615,40 +9615,311 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-// ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。  Set 本身是一个构造函数，用来生成 Set 数据结构。
-/* const s = new Set();
-[2, 3, 5, 4, 5, 2, 2].forEach(item => s.add(item))
-for (let i of s) {
-	console.log(i)
+var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+{
+	var Parent = function () {
+		function Parent() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+
+			_classCallCheck(this, Parent);
+
+			this.name = name;
+		}
+
+		_createClass(Parent, [{
+			key: 'haha',
+			value: function haha() {
+				this.hehe();
+				Parent.hehe();
+			}
+		}, {
+			key: 'hehe',
+			value: function hehe() {
+				// console.log('hehe')
+				console.log(this); // Parent {name: "andong"}
+			}
+		}], [{
+			key: 'hehe',
+			value: function hehe() {
+				console.log('我是静态方法hehe...');
+			}
+		}]);
+
+		return Parent;
+	}();
+
+	var v_child = new Parent('andong');
+	// console.log(v_child)
+	//console.log(v_child.name)  //  andong
+	// v_child.hehe();
+	v_child.haha();
 }
-console.log(s) */ // Set(4) {2, 3, 5, 4}
-// 上面代码通过add方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。
 
-// Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
-/* let numbers = [2, 3, 5, 4, 5, 2, 2];
-const set = new Set(numbers);
-console.log(set)  // Set(4) {2, 3, 5, 4}
-console.log([...set]) // (4) [2, 3, 5, 4]
-console.log(set.size) */ // 4
+{
+	console.log(new Array(1, 2));
+	// 子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用super方法，子类就得不到this对象。
+	// ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面（所以必须先调用super方法），然后再用子类的构造函数修改this。
+	// 在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。
 
-var setp = document.querySelectorAll('p');
-var set = new Set(setp);
-var aa = Array.from(set);
-aa[2].addEventListener('click', function (e) {
-	console.log(e.currentTarget);
-}, false);
+	var _Parent = function () {
+		function _Parent() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
 
-// 上面代码也展示了一种去除数组重复成员的方法。
-// 去除数组的重复成员    [...new Set(array)]
+			_classCallCheck(this, _Parent);
 
-// console.log(Set.prototype.constructor)
+			this.name = name;
+		}
 
-// 提供了去除数组重复成员的另一种方法
-/* let numbers = [2, 3, 5, 2, 4, 5, 2, 2, 5];
-function dedupe(array) {
-	return Array.from(new Set(array))
+		_createClass(_Parent, [{
+			key: 'hehe',
+			value: function hehe() {
+				console.log('pp');
+			}
+		}, {
+			key: 'func',
+			value: function func() {
+				console.log('这不是静态方法...');
+			}
+		}], [{
+			key: 'func',
+			value: function func() {
+				console.log('父类的静态方法，也会被子类继承,而不是子类的实例继承哦...');
+			}
+		}]);
+
+		return _Parent;
+	}();
+
+	var Child = function (_Parent2) {
+		_inherits(Child, _Parent2);
+
+		function Child() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'KK';
+			var type = arguments[1];
+
+			_classCallCheck(this, Child);
+
+			var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
+
+			_this.type = type;
+			return _this;
+		}
+
+		_createClass(Child, [{
+			key: 'yy',
+			value: function yy() {
+				console.log('yy');
+			}
+		}, {
+			key: 'func',
+			value: function func() {
+				console.log('这不是静态方法qqqqqqqqqqqq...');
+			}
+		}]);
+
+		return Child;
+	}(_Parent);
+
+	var _child = new Child('mm', 'nn');
+	console.log(_child.name); // 如果super(name)里有name就是mm。不传name就是haha,如果加上this.name = name又就是mm了
+	// console.log(child.type)  // nn
+	// child.hehe() // pp
+	// child.yy()  // yy
+	Child.func();
+	_child.func(); // 子类里有func这个方法的话就用子类里的方法...
+	// Object.getPrototypeOf方法可以用来从子类上获取父类。  可以使用这个方法判断，一个类是否继承了另一个类。
+	console.log(Object.getPrototypeOf(Child) === _Parent);
 }
-console.log(dedupe(numbers)) */
+
+{
+	// 第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
+	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+	var A = function () {
+		function A() {
+			_classCallCheck(this, A);
+		}
+
+		_createClass(A, [{
+			key: 'p',
+			value: function p() {
+				return 2;
+			}
+		}, {
+			key: 'hehe',
+			value: function hehe() {
+				console.log('我是呵呵...');
+			}
+		}]);
+
+		return A;
+	}();
+
+	var B = function (_A) {
+		_inherits(B, _A);
+
+		function B() {
+			_classCallCheck(this, B);
+
+			var _this2 = _possibleConstructorReturn(this, (B.__proto__ || Object.getPrototypeOf(B)).call(this));
+
+			console.log(_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'p', _this2).call(_this2));
+			return _this2;
+		}
+
+		_createClass(B, [{
+			key: 'hehe',
+			value: function hehe() {
+				console.log('我是呵呵22...');
+			}
+		}, {
+			key: 'haha',
+			value: function haha() {
+				console.log(_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'p', this).call(this));
+				this.hehe(); // 如果B中没有hehe()这个函数，this.hehe()与super.hehe()显示的一样  我是呵呵...
+				_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'hehe', this).call(this); // 如果B中有hehe()这个函数，this.hehe()显示 我是呵呵22...  super.hehe()显示  我是呵呵...
+			}
+		}]);
+
+		return B;
+	}(A);
+
+	var b = new B();
+	b.haha();
+}
+
+{
+	// ES6 规定，在子类普通方法中通过super调用父类的方法时，方法内部的this指向当前的子类实例。
+	// 由于this指向子类实例，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性。
+
+	var _A2 = function _A2() {
+		_classCallCheck(this, _A2);
+
+		this.x = 1;
+	};
+	// A.prototype.x = 99;
+
+
+	var _B = function (_A3) {
+		_inherits(_B, _A3);
+
+		function _B() {
+			_classCallCheck(this, _B);
+
+			var _this3 = _possibleConstructorReturn(this, (_B.__proto__ || Object.getPrototypeOf(_B)).call(this));
+
+			_this3.x = 2;
+			_set(_B.prototype.__proto__ || Object.getPrototypeOf(_B.prototype), 'x', 3, _this3);
+			console.log(_get(_B.prototype.__proto__ || Object.getPrototypeOf(_B.prototype), 'x', _this3)); // undefined
+			console.log(_this3.x); // 2
+			return _this3;
+		}
+
+		return _B;
+	}(_A2);
+
+	var _b = new _B();
+	// 上面代码中，super.x赋值为3，这时等同于对this.x赋值为3(实际等于2,阮老师写的好像有错...)。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。
+
+	// 如果super作为对象，用在静态方法之中，这时super将指向父类，而不是父类的原型对象。
+
+	var _Parent3 = function () {
+		function _Parent3() {
+			_classCallCheck(this, _Parent3);
+		}
+
+		_createClass(_Parent3, [{
+			key: 'myMethod',
+			value: function myMethod(msg) {
+				console.log('instance', msg);
+				console.log('hehehe');
+			}
+		}], [{
+			key: 'myMethod',
+			value: function myMethod(msg) {
+				console.log('static', msg);
+			}
+		}]);
+
+		return _Parent3;
+	}();
+
+	var _Child = function (_Parent4) {
+		_inherits(_Child, _Parent4);
+
+		function _Child() {
+			_classCallCheck(this, _Child);
+
+			return _possibleConstructorReturn(this, (_Child.__proto__ || Object.getPrototypeOf(_Child)).apply(this, arguments));
+		}
+
+		_createClass(_Child, [{
+			key: 'myMethod',
+			value: function myMethod(msg) {
+				_get(_Child.prototype.__proto__ || Object.getPrototypeOf(_Child.prototype), 'myMethod', this).call(this, msg);
+				console.log('iiii');
+			}
+		}], [{
+			key: 'myMethod',
+			value: function myMethod(msg) {
+				_get(_Child.__proto__ || Object.getPrototypeOf(_Child), 'myMethod', this).call(this, msg);
+			}
+		}]);
+
+		return _Child;
+	}(_Parent3);
+
+	_Child.myMethod(1); // static 1
+
+	var child = new _Child();
+	child.myMethod(2); // instance 2
+
+}
+
+/* {
+	// getter, setter
+	class Parent {
+		constructor(name='haha') {
+			this.name = name
+		}
+		get longName() {
+			return 'mk' + this.name
+		};
+		set longName(value) {
+			this.name = value
+		};
+	};
+	let v = new Parent();
+	console.log(v.longName)	 //  mkhaha
+	v.longName = 'hello'
+	console.log(v.longName)  // mkhello
+}
+
+
+{
+	// 静态方法通过类调用，而不是通过例的实例去调用....
+	class Parent {
+		constructor(name='wg') {
+			this.name = name
+		}
+		static tell() {  //  静态方法...
+			console.log('tell')
+		}
+	}
+	Parent.type = 'haha'   // 静态属性的定义方法...
+	Parent.tell()  // tell
+	console.log(Parent.type)
+} */
 
 /***/ })
 /******/ ]);
