@@ -13,7 +13,7 @@
 {
 	// 属性表达式...
 	let a = 'b'
-	let es5_obj = {
+	let es5_obj = { 
 		a: 'hh',
 		b: 'kk'
 	}
