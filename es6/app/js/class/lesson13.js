@@ -7,10 +7,10 @@
 	
 	/* function timeout(ms) {
 		return new Promise((resolve, reject) => {
-			// setTimeout(resolve, ms, 'done');
-			setTimeout(() => {
-				resolve('done')
-			},ms)
+			setTimeout(resolve, ms, '哈哈');
+			// setTimeout(() => {
+			// 	resolve('donehaha')
+			// },ms)
 		});
 	}
 	timeout(3000).then((value) => {
@@ -23,9 +23,14 @@
 readyState 属性存有 XMLHttpRequest 的状态信息。
 下面是 XMLHttpRequest 对象的三个重要的属性：  onreadystatechange(存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。)  readyState   status
 	 */
+	// open()  用于指定发送HTTP请求的参数 
+	/* send() 发出HTTP请求
+	不带参数，就表示HTTP请求只包含头信息，也就是只有一个URL，典型例子就是GET请求。
+	带有参数，就表示除了头信息，还带有包含具体数据的信息体，典型例子就是POST请求。 */
 	/* const getJSON = function(url) {
 		const promise = new Promise(function(resolve, reject){
 			const handler = function() {
+				// console.log(this);
 				if (this.readyState !== 4) {
 					return;
 				}
@@ -38,8 +43,8 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 			const client = new XMLHttpRequest();
 			// 使用 async=false 时，请不要编写 onreadystatechange 函数 - 把代码放到 send() 语句后面即可：
 			// 一般来说，向服务器发送POST请求由于解析机制的原因，需要进行特别的处理。因为POST请求和Web表单提交是不同的，需要使用XHR来模拟表单提交
-			// xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			client.open("GET", url, true);
+			// xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); // 设置HTTP头信息。该方法必须在open()之后、send()之前调用
 			client.onreadystatechange = handler;
 			client.responseType = "json";
 			client.setRequestHeader("Accept", "application/json");
@@ -57,8 +62,8 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	
 	/* const p1 = new Promise(function (resolve, reject) {
 		console.log('p1')
-		// setTimeout(() => resolve('拉拉...'), 3000)
-		setTimeout(() => reject(new Error('fail')), 3000)
+		setTimeout(() => resolve('拉拉...'), 3000)
+		// setTimeout(() => reject(new Error('fail')), 3000)
 	})
 
 	const p2 = new Promise(function (resolve, reject) {
@@ -68,7 +73,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 
 	p2
 		.then(result => console.log(result))
-		.catch(error => console.log(error)) */
+		.catch(error => console.log(error)); */
 	// p1是一个 Promise，3 秒之后变为rejected。p2的状态在 10 秒之后改变，resolve方法返回的是p1。由于p2返回的是另一个 Promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者（p1）
 	
 	// 调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务
@@ -79,12 +84,12 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 		console.log(r);
 	}); */
 	// 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。
-	new Promise((resolve, reject) => {
-		return resolve(1);
+	/* new Promise((resolve, reject) => {
+		return resolve(99999);
 		console.log(2);
 	  }).then(r => {
-		// console.log(r);
-	});
+		console.log(r);
+	}); */
 	
 }
 
@@ -126,6 +131,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	})
 } */
 
+
 /* {
 	function Product(name, price) {
 	  this.name = name;
@@ -148,9 +154,10 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	haha.hehe()  // 9
 } */
 
-/* {
-	let animals = [
-		{species: 'Lion', name: 'King'},{species: 'Whale', name: 'Fail'}
+{
+	/* let animals = [
+		{species: 'Lion', name: 'King'},
+		{species: 'Whale', name: 'Fail'}
 	]
 	// 使用call方法调用匿名函数
 	for(let i=0; i<animals.length;i++) {
@@ -162,20 +169,20 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 			//}
 			//this.print()
 		}).call(animals[i], i)
-	}
-} */
-
-{
-	// 使用call方法调用函数并且指定上下文的'this'
-	function greet() {
-		let reply = [this.person, 'Is An Awesome', this.role].join(' ')
-		console.log(reply)
-	}
-	let i = {person: 'Douglas Crockford', role: 'Javascript Developer'}
-	greet.call(i)
+	} */
 }
 
 /* {
+	// 使用call方法调用函数并且指定上下文的'this'
+	function greet() {
+		let reply = [this.person, 'Is An Awesome', this.role].join(' ');
+		console.log(reply);
+	}
+	let i = {person: 'Douglas Crockford', role: 'Javascript Developer'};
+	greet.call(i);
+} */
+
+{
 	let ajax = function(num) {
 		console.log('执行2')
 		return new Promise((resolve,reject) => {
@@ -193,7 +200,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
 	}).catch((err) => {
 		console.log(err)
 	})
-} */
+}
 
 // Promise.all方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 /* const p = Promise.all([p1, p2, p3]);
@@ -203,7 +210,7 @@ p的状态由p1、p2、p3决定，分成两种情况。
 （1）只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。
 （2）只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。 */
 
-/* {
+{
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
 			// let img = document.createElement('img')
@@ -228,9 +235,9 @@ p的状态由p1、p2、p3决定，分成两种情况。
 	// 	loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
 	// ]).then(showImgs)
 
-	Promise.all([
+	/* Promise.all([
 		loadImg('https://gma.alicdn.com/bao/uploaded/i4/17318753/TB2MsHEopuWBuNjSszbXXcS7FXa_!!0-saturn_solar.jpg_130x130.jpg_.webp'),
-		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
+		loadImg('https://publish-pic-cpu.baidu.com/4871b3ba-3656-4e8a-bb1c-5cd7bbcdf0df.jpeg@w_228,h_152'),
 		loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
 	])
 	.then(imgs => {
@@ -241,10 +248,10 @@ p的状态由p1、p2、p3决定，分成两种情况。
 	})
 	.catch(err => {
 		console.log(err)
-	})
-} */
+	}) */
+}
 
-{
+/* {
 	function loadImg(src) {
 		return new Promise((resolve,reject) => {
 			let img = document.createElement('img')
@@ -259,6 +266,7 @@ p的状态由p1、p2、p3决定，分成两种情况。
 	}
 	
 	function showImgs(img) {
+		console.log(img)
 		let p = document.createElement('p')
 		p.appendChild(img)
 		document.body.appendChild(p)
@@ -269,7 +277,7 @@ p的状态由p1、p2、p3决定，分成两种情况。
 		loadImg('https://lh3.googleusercontent.com/-hG-VPA9ymmo/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq0QVHM5I_dhlssRdMxbst6IGxTaRg/mo/photo.jpg?sz=46'),
 		loadImg('http://image1.dianpass.com/All_Cross/brandlogo/2018/5/23/20180523095216520.png')
 	]).then(showImgs)
-}
+} */
 
 
 

@@ -9615,311 +9615,275 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
+// 执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
 
 {
-	var Parent = function () {
-		function Parent() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
 
-			_classCallCheck(this, Parent);
+	/* function* helloWorldGenerator() {
+ 	yield 'hello';
+ 	yield  123 + 456;
+ 	yield 'world';
+ 	return 'ending'
+ }
+ let hw = helloWorldGenerator();
+ // console.log(hw);
+ console.log(hw.next())
+ console.log(hw.next())
+ console.log(hw.next().value)
+ console.log(hw.next())
+ console.log(hw.next()) */
 
-			this.name = name;
-		}
+	/* function* f() {
+ 	console.log('执行...')
+ }
+ let generator = f()
+ setTimeout(function() {
+ 	generator.next()
+ }, 2000) */
 
-		_createClass(Parent, [{
-			key: 'haha',
-			value: function haha() {
-				this.hehe();
-				Parent.hehe();
-			}
-		}, {
-			key: 'hehe',
-			value: function hehe() {
-				// console.log('hehe')
-				console.log(this); // Parent {name: "andong"}
-			}
-		}], [{
-			key: 'hehe',
-			value: function hehe() {
-				console.log('我是静态方法hehe...');
-			}
-		}]);
+	/* function* demo() {
+ 	console.log('hello--' + (yield 123));
+ 	return 'ending'
+ } */
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// console.log(demo().next());  // {value: 123, done: false}
+	// 如果不赋值，就是上面的结果... generatot函数必须let de = demo()
+	/* let de = demo()
+ console.log(de.next())  // {value: 123, done: false}
+ console.log(de.next()) */ // hello--undefined  {value: "ending", done: true}
 
-		return Parent;
-	}();
+	// yield表达式如果用在另一个表达式之中，必须放在圆括号里面。
+	// yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
+	/* function foo(a,b) {
+ 	console.log(a,b)
+ }
+ function* demo() {
+ 	foo(yield 'haha', yield 'hehe'); // OK 
+ 	let input = yield; // OK
+ 	return 'kkkkkkk'
+ }
+ // console.log(demo().next());  // {value: "haha", done: false}	
+ // console.log(demo().next());  // {value: "haha", done: false}
+ let de = demo()
+ console.log(de.next());
+ console.log(de.next());
+ console.log(de.next());
+ console.log(de.next()); */
 
-	var v_child = new Parent('andong');
-	// console.log(v_child)
-	//console.log(v_child.name)  //  andong
-	// v_child.hehe();
-	v_child.haha();
 }
 
 {
-	console.log(new Array(1, 2));
-	// 子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用super方法，子类就得不到this对象。
-	// ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面（所以必须先调用super方法），然后再用子类的构造函数修改this。
-	// 在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。
+	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
+	var f = /*#__PURE__*/regeneratorRuntime.mark(function f() {
+		var i, reset;
+		return regeneratorRuntime.wrap(function f$(_context) {
+			while (1) {
+				switch (_context.prev = _context.next) {
+					case 0:
+						i = 0;
 
-	var _Parent = function () {
-		function _Parent() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'haha';
+					case 1:
+						if (false) {
+							_context.next = 9;
+							break;
+						}
 
-			_classCallCheck(this, _Parent);
+						_context.next = 4;
+						return i;
 
-			this.name = name;
-		}
+					case 4:
+						reset = _context.sent;
 
-		_createClass(_Parent, [{
-			key: 'hehe',
-			value: function hehe() {
-				console.log('pp');
+						if (reset) {
+							i = -8;
+						}
+
+					case 6:
+						i++;
+						_context.next = 1;
+						break;
+
+					case 9:
+					case "end":
+						return _context.stop();
+				}
 			}
-		}, {
-			key: 'func',
-			value: function func() {
-				console.log('这不是静态方法...');
-			}
-		}], [{
-			key: 'func',
-			value: function func() {
-				console.log('父类的静态方法，也会被子类继承,而不是子类的实例继承哦...');
-			}
-		}]);
+		}, f, this);
+	});
 
-		return _Parent;
-	}();
+	var g = f();
+	console.log(g.next()); // {value: 0, done: false}
+	console.log(g.next()); // {value: 1, done: false}
+	console.log(g.next()); // {value: 2, done: false}
+	console.log(g.next(true)); // {value: -7, done: false}
+	console.log(g.next()); // {value: -6, done: false}
+	// console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());
 
-	var Child = function (_Parent2) {
-		_inherits(Child, _Parent2);
+	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为
+	/* function* foo(x) {
+ 	let y = 2 * (yield (x+1));
+ 	let z = yield (y / 3);
+ 	return (x + y + z);
+ }
+ let a = foo(5)
+ console.log(a.next())  // {value: 6, done: false}
+ console.log(a.next())  // {value: NaN, done: false}
+ console.log(a.next())  // {value: NaN, done: true}
+ console.log(a.next()) */ // {value: undefined, done: true}
+	// 第二次运行next方法的时候不带参数，导致 y 的值等于2 * undefined（即NaN），除以 3 以后还是NaN，因此返回对象的value属性也等于NaN。第三次运行Next方法的时候不带参数，所以z等于undefined，返回对象的value属性等于5 + NaN + undefined，即NaN。
 
-		function Child() {
-			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'KK';
-			var type = arguments[1];
-
-			_classCallCheck(this, Child);
-
-			var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
-
-			_this.type = type;
-			return _this;
-		}
-
-		_createClass(Child, [{
-			key: 'yy',
-			value: function yy() {
-				console.log('yy');
-			}
-		}, {
-			key: 'func',
-			value: function func() {
-				console.log('这不是静态方法qqqqqqqqqqqq...');
-			}
-		}]);
-
-		return Child;
-	}(_Parent);
-
-	var _child = new Child('mm', 'nn');
-	console.log(_child.name); // 如果super(name)里有name就是mm。不传name就是haha,如果加上this.name = name又就是mm了
-	// console.log(child.type)  // nn
-	// child.hehe() // pp
-	// child.yy()  // yy
-	Child.func();
-	_child.func(); // 子类里有func这个方法的话就用子类里的方法...
-	// Object.getPrototypeOf方法可以用来从子类上获取父类。  可以使用这个方法判断，一个类是否继承了另一个类。
-	console.log(Object.getPrototypeOf(Child) === _Parent);
+	/* let b = foo(5)
+ console.log(b.next())  // {value: 6, done: false}
+ console.log(b.next(12))  // {value: 8, done: false}
+ console.log(b.next(13)) */ // {value: 42, done: true}
+	// 由于next方法的参数表示上一个yield表达式的返回值，所以在第一次使用next方法时，传递参数是无效的。V8 引擎直接忽略第一次使用next方法时的参数，只有从第二次使用next方法开始，参数才是有效的。从语义上讲，第一个next方法用来启动遍历器对象，所以不用带有参数。
 }
 
 {
-	// 第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
-	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
-	var A = function () {
-		function A() {
-			_classCallCheck(this, A);
-		}
 
-		_createClass(A, [{
-			key: 'p',
-			value: function p() {
-				return 2;
-			}
-		}, {
-			key: 'hehe',
-			value: function hehe() {
-				console.log('我是呵呵...');
-			}
-		}]);
+	/* function* dataConsumer() {
+ 	console.log('Started');
+ 	console.log(`1. ${yield}`);
+ 	console.log(`2. ${yield}`);
+ 	return 'result';
+ }
+ let aa = dataConsumer()
+ console.log(aa.next())
+ console.log(aa.next('a'))
+ console.log(aa.next('b')) */
 
-		return A;
-	}();
-
-	var B = function (_A) {
-		_inherits(B, _A);
-
-		function B() {
-			_classCallCheck(this, B);
-
-			var _this2 = _possibleConstructorReturn(this, (B.__proto__ || Object.getPrototypeOf(B)).call(this));
-
-			console.log(_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'p', _this2).call(_this2));
-			return _this2;
-		}
-
-		_createClass(B, [{
-			key: 'hehe',
-			value: function hehe() {
-				console.log('我是呵呵22...');
-			}
-		}, {
-			key: 'haha',
-			value: function haha() {
-				console.log(_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'p', this).call(this));
-				this.hehe(); // 如果B中没有hehe()这个函数，this.hehe()与super.hehe()显示的一样  我是呵呵...
-				_get(B.prototype.__proto__ || Object.getPrototypeOf(B.prototype), 'hehe', this).call(this); // 如果B中有hehe()这个函数，this.hehe()显示 我是呵呵22...  super.hehe()显示  我是呵呵...
-			}
-		}]);
-
-		return B;
-	}(A);
-
-	var b = new B();
-	b.haha();
 }
 
 {
-	// ES6 规定，在子类普通方法中通过super调用父类的方法时，方法内部的this指向当前的子类实例。
-	// 由于this指向子类实例，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性。
+	// for...of循环可以自动遍历 Generator 函数时生成的Iterator对象，且此时不再需要调用next方法。
+	/* function* foo() {
+ 	yield 1;
+ 	yield 2;
+ 	yield 3;
+ 	yield 4;
+ 	yield 5;
+ 	return 6;
+ }
+ for (let v of foo()) {
+ 	console.log(v)  // 1,2,3,4,5
+ } */
+	// 使用for...of循环，依次显示 5 个yield表达式的值。这里需要注意，一旦next方法的返回对象的done属性为true，for...of循环就会中止，且不包含该返回对象，所以上面代码的return语句返回的6，不包括在for...of循环之中。
 
-	var _A2 = function _A2() {
-		_classCallCheck(this, _A2);
+	/* function* fibonacci() {
+ 	let [prev, curr] = [0, 1];
+ 	for (;;) {
+ 	  // console.log(prev/curr);
+ 	  yield curr;
+ 	  [prev, curr] = [curr, prev + curr];
+ 	}
+   }
+   for (let n of fibonacci()) {
+ 	if (n > 10000) break;
+ 	console.log(n);
+ } */
 
-		this.x = 1;
-	};
-	// A.prototype.x = 99;
+	/* let m = 1;
+ for (;;) {
+ 	m++;
+ 	if (m>34) break;
+ 	console.log(m)
+ } */
 
-
-	var _B = function (_A3) {
-		_inherits(_B, _A3);
-
-		function _B() {
-			_classCallCheck(this, _B);
-
-			var _this3 = _possibleConstructorReturn(this, (_B.__proto__ || Object.getPrototypeOf(_B)).call(this));
-
-			_this3.x = 2;
-			_set(_B.prototype.__proto__ || Object.getPrototypeOf(_B.prototype), 'x', 3, _this3);
-			console.log(_get(_B.prototype.__proto__ || Object.getPrototypeOf(_B.prototype), 'x', _this3)); // undefined
-			console.log(_this3.x); // 2
-			return _this3;
-		}
-
-		return _B;
-	}(_A2);
-
-	var _b = new _B();
-	// 上面代码中，super.x赋值为3，这时等同于对this.x赋值为3(实际等于2,阮老师写的好像有错...)。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。
-
-	// 如果super作为对象，用在静态方法之中，这时super将指向父类，而不是父类的原型对象。
-
-	var _Parent3 = function () {
-		function _Parent3() {
-			_classCallCheck(this, _Parent3);
-		}
-
-		_createClass(_Parent3, [{
-			key: 'myMethod',
-			value: function myMethod(msg) {
-				console.log('instance', msg);
-				console.log('hehehe');
-			}
-		}], [{
-			key: 'myMethod',
-			value: function myMethod(msg) {
-				console.log('static', msg);
-			}
-		}]);
-
-		return _Parent3;
-	}();
-
-	var _Child = function (_Parent4) {
-		_inherits(_Child, _Parent4);
-
-		function _Child() {
-			_classCallCheck(this, _Child);
-
-			return _possibleConstructorReturn(this, (_Child.__proto__ || Object.getPrototypeOf(_Child)).apply(this, arguments));
-		}
-
-		_createClass(_Child, [{
-			key: 'myMethod',
-			value: function myMethod(msg) {
-				_get(_Child.prototype.__proto__ || Object.getPrototypeOf(_Child.prototype), 'myMethod', this).call(this, msg);
-				console.log('iiii');
-			}
-		}], [{
-			key: 'myMethod',
-			value: function myMethod(msg) {
-				_get(_Child.__proto__ || Object.getPrototypeOf(_Child), 'myMethod', this).call(this, msg);
-			}
-		}]);
-
-		return _Child;
-	}(_Parent3);
-
-	_Child.myMethod(1); // static 1
-
-	var child = new _Child();
-	child.myMethod(2); // instance 2
-
+	// 除了for...of循环以外，扩展运算符（...）、解构赋值和Array.from方法内部调用的，都是遍历器接口。这意味着，它们都可以将 Generator 函数返回的 Iterator 对象，作为参数。  扩展运算符...
 }
-
-/* {
-	// getter, setter
-	class Parent {
-		constructor(name='haha') {
-			this.name = name
-		}
-		get longName() {
-			return 'mk' + this.name
-		};
-		set longName(value) {
-			this.name = value
-		};
-	};
-	let v = new Parent();
-	console.log(v.longName)	 //  mkhaha
-	v.longName = 'hello'
-	console.log(v.longName)  // mkhello
-}
-
 
 {
-	// 静态方法通过类调用，而不是通过例的实例去调用....
-	class Parent {
-		constructor(name='wg') {
-			this.name = name
-		}
-		static tell() {  //  静态方法...
-			console.log('tell')
-		}
-	}
-	Parent.type = 'haha'   // 静态属性的定义方法...
-	Parent.tell()  // tell
-	console.log(Parent.type)
-} */
+	// ES2017 标准引入了 async 函数，使得异步操作变得更加方便。  async 函数是什么？一句话，它就是 Generator 函数的语法糖。
+	/* const fs = require('fs')
+ const readFile = function (fileName) {
+ 	return new Promise(function (resolve,reject) {
+ 		fs.readFile(fileName, function (error,data) {
+ 			if (error) return reject(erroe);
+ 			resolve(data.toString())
+ 		})
+ 	})
+ } */
+	/* const gen = function* () {
+ 	yield readFile('./a.txt');
+ 	yield readFile('./test.js')
+ }
+ let a = gen()
+ a.next().value.then((data) => {
+ 	console.log(data)
+ })
+ a.next().value.then((data) => {
+ 	console.log(data)
+ }) */
+
+	// 写成async函数，就是下面这样。
+	/* const asyncReadFile = async function() {
+ 	return await readFile('./a.txt');
+ 	// return await readFile('./test.js');
+ }
+ asyncReadFile().then((item) => {
+ 	console.log(item)
+ }) */
+}
+
+{
+
+	/* function timeout(ms) {
+ 	return new Promise((resolve,reject) => {
+ 		setTimeout(resolve,ms)
+ 	})
+ }
+ async function asyncPrint(value, ms) {
+ 	await timeout(ms);
+ 	console.log(value);
+ }
+ asyncPrint('hello world', 2000) */
+
+	/* async function f() {
+ 	try {
+ 	  await Promise.reject('出错了');
+ 	} catch(e) {
+ 
+ 	}
+ 	return await Promise.resolve('万港...');
+   }
+   f().then(v => console.log(v)) */ // 万港...
+
+}
+
+{
+
+	/* function getFoo() {
+ 	return new Promise((resolve,reject) => {
+ 		resolve('foo')
+ 	})
+ }
+ const g = function* () {
+ 	try {
+ 		const foo = yield getFoo()
+ 		console.log(foo,123)
+ 	} catch(e) {
+ 		console.log(e)
+ 	}
+ }
+ function run (generator) {
+ 	const it = generator()
+ 	function go(result) {
+ 		// console.log(result)
+ 		if (result.done) return result.value;
+ 		return result.value.then(value => {
+ 			return go(it.next(value+'看看'));
+ 		}, error => {
+ 			return go(it.throw(error))
+ 		})
+ 	}
+ 	go(it.next())
+ }
+ run(g); */
+
+}
 
 /***/ })
 /******/ ]);

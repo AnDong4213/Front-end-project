@@ -9,10 +9,12 @@
 		yield 'world';
 		return 'ending'
 	}
-	let hw = helloWorldGenerator()
+	let hw = helloWorldGenerator();
+	// console.log(hw);
 	console.log(hw.next())
 	console.log(hw.next())
 	console.log(hw.next().value)
+	console.log(hw.next())
 	console.log(hw.next()) */
 
 	/* function* f() {
@@ -26,23 +28,25 @@
 	/* function* demo() {
 		console.log('hello--' + (yield 123));
 		return 'ending'
-	}
+	} */
 	// console.log(demo().next());  // {value: 123, done: false}
 	// console.log(demo().next());  // {value: 123, done: false}
 	// console.log(demo().next());  // {value: 123, done: false}
 	// console.log(demo().next());  // {value: 123, done: false}
 	// 如果不赋值，就是上面的结果... generatot函数必须let de = demo()
-	let de = demo()
+	/* let de = demo()
 	console.log(de.next())  // {value: 123, done: false}
 	console.log(de.next()) */  // hello--undefined  {value: "ending", done: true}
 	
+	// yield表达式如果用在另一个表达式之中，必须放在圆括号里面。
 	// yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
 	/* function foo(a,b) {
 		console.log(a,b)
 	}
 	function* demo() {
-		foo(yield 'haha', yield 'hehe'); // OK
+		foo(yield 'haha', yield 'hehe'); // OK 
 		let input = yield; // OK
+		return 'kkkkkkk'
 	}
 	// console.log(demo().next());  // {value: "haha", done: false}	
 	// console.log(demo().next());  // {value: "haha", done: false}
@@ -56,7 +60,7 @@
 
 {
 	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
-	/* function* f() {
+	function* f() {
 		for (let i=0; true; i++) {
 			let reset = yield i;
 			if (reset) {i = -8}
@@ -67,7 +71,8 @@
 	console.log(g.next());  // {value: 1, done: false}
 	console.log(g.next());  // {value: 2, done: false}
 	console.log(g.next(true));  // {value: -7, done: false}
-	console.log(g.next()); */  // {value: -6, done: false}
+	console.log(g.next());  // {value: -6, done: false}
+	// console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());
 
 	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为
 	/* function* foo(x) {
@@ -203,7 +208,7 @@
 
 {
 
-	function getFoo() {
+	/* function getFoo() {
 		return new Promise((resolve,reject) => {
 			resolve('foo')
 		})
@@ -229,7 +234,7 @@
 		}
 		go(it.next())
 	}
-	run(g)
+	run(g); */
 
 }
 
