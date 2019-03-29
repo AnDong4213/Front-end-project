@@ -1,4 +1,4 @@
-{
+/* {
 	let tell = function* (){
 		yield 'a'		
 		yield 'b'
@@ -11,7 +11,7 @@
 	console.log(k.next())   //  {value: "b", done: false}
 	console.log(k.next().value)  //  c
 	console.log(k.next())
-}
+} */
 
 /* {
 	let obj = {}, a = [{a:'a'},{d:'d'}],b = {b:'b'}, c = {c:'c'}
@@ -42,8 +42,8 @@
 } */
 
 {
-	let draw = function (count) {
-		console.log(`剩余${count}次`)
+	/* let draw = function (count) {
+		console.log(`剩余${count}次`);
 	}
 	let residue = function* (count){
 		while (count>0) {
@@ -60,7 +60,7 @@
 	document.body.appendChild(btn)
 	document.getElementById('start').addEventListener('click',function(){
 		stat.next()
-	},false)
+	},false) */
 }
 
 {
@@ -71,9 +71,9 @@
 				resolve({code: 200})
 			},200)
 		})
-	}
+	};
 	let pull = function() {
-		let generator = ajax(), step = generator.next()
+		let generator = ajax(), step = generator.next();
 		step.value.then((d) => {
 			if (d.code !== 200) {
 				setTimeout(() => {
@@ -86,6 +86,35 @@
 		})
 	}
 	pull()
+}
+
+
+{
+	
+	let ajax = function* () {
+		let rs = yield new Promise((resolve,reject) => {
+			setTimeout(() => {
+				resolve({code: 2019})
+			},200)
+		})
+		console.log(rs);
+	};
+	ajax();
+	console.log(ajax())
+	/* let pull = function() {
+		let generator = ajax(), step = generator.next();
+		step.value.then((d) => {
+			if (d.code !== 200) {
+				setTimeout(() => {
+					console.info('wait')
+					pull()
+				},1000)
+			} else {
+				console.info(d)
+			}
+		})
+	}
+	pull() */
 }
 
 

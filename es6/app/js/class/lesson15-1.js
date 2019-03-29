@@ -60,7 +60,7 @@
 
 {
 	// yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
-	function* f() {
+	/* function* f() {
 		for (let i=0; true; i++) {
 			let reset = yield i;
 			if (reset) {i = -8}
@@ -71,7 +71,7 @@
 	console.log(g.next());  // {value: 1, done: false}
 	console.log(g.next());  // {value: 2, done: false}
 	console.log(g.next(true));  // {value: -7, done: false}
-	console.log(g.next());  // {value: -6, done: false}
+	console.log(g.next()); */  // {value: -6, done: false}
 	// console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());console.log(g.next());
 
 	// Generator 函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。也就是说，可以在 Generator 函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为
@@ -103,10 +103,10 @@
 		console.log(`2. ${yield}`);
 		return 'result';
 	}
-	let aa = dataConsumer()
-	console.log(aa.next())
-	console.log(aa.next('a'))
-	console.log(aa.next('b')) */
+	let aa = dataConsumer();
+	console.log(aa.next());
+	console.log(aa.next('a'));
+	console.log(aa.next('b')); */
 
 }
 
@@ -150,7 +150,7 @@
 
 {
 	// ES2017 标准引入了 async 函数，使得异步操作变得更加方便。  async 函数是什么？一句话，它就是 Generator 函数的语法糖。
-	/* const fs = require('fs')
+	/* const fs = require('fs');
 	const readFile = function (fileName) {
 		return new Promise(function (resolve,reject) {
 			fs.readFile(fileName, function (error,data) {
@@ -192,7 +192,7 @@
 		await timeout(ms);
 		console.log(value);
 	}
-	asyncPrint('hello world', 2000) */
+	asyncPrint('hello world', 2000); */
 
 	/* async function f() {
 		try {
@@ -208,11 +208,11 @@
 
 {
 
-	/* function getFoo() {
+	function getFoo() {
 		return new Promise((resolve,reject) => {
-			resolve('foo')
+			resolve('foo_99')
 		})
-	}
+	};
 	const g = function* () {
 		try {
 			const foo = yield getFoo()
@@ -220,7 +220,7 @@
 		} catch(e) {
 			console.log(e)
 		}
-	}
+	};
 	function run (generator) {
 		const it = generator()
 		function go(result) {
@@ -234,7 +234,7 @@
 		}
 		go(it.next())
 	}
-	run(g); */
+	run(g);
 
 }
 

@@ -88,12 +88,23 @@
 			this.func = function() {
 				console.log(99)
 			}
+			this.method = function() {
+				console.log(645)
+			}
 		}
 		method() {
 			console.log('method')
 		}
+		func() {
+			console.log('噢噢噢')
+			this.func()
+			this.method() // 实例上有就调用实例，没有就调用原型上的...
+		}
 		static jing() {
 			console.log('jing-oo')
+		}
+		static func() {
+			console.log('kk空')
 		}
 	}
 // 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
@@ -109,10 +120,48 @@
 			super.method()
 			super.func()
 		}
+		static hehe() {
+			super.func()
+		}
 	}
 	let b = new aPoint(12,'anle','red')
 	console.log(b.age)  // 12
 	b.haha()  // method
-	aPoint.jing()  // jing
-
+	aPoint.jing()  // jing-oo
+	aPoint.hehe(); // kk空
 }
+console.log('--------------------------------------------------')
+{
+	class BaseModel {
+	  constructor(data, message) {
+		if (typeof data === 'string') {
+		  this.message = data
+		  data = null
+		  message = null
+		}
+		if (data) {
+			// console.log(data);
+			this.data = data
+		}
+		if (message) {
+			// console.log(message);
+			this.message = message
+		}
+	  }
+	  haha() {
+		  console.log(this.data)
+		  console.log(this.message)
+	  }
+	}
+	let aa = new BaseModel({hh: '就就开票'});
+	console.log(aa.data)
+	
+	
+	
+	
+}
+
+
+
+
+

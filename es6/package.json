@@ -34,5 +34,8 @@
     "webpack": "^4.8.3",
     "webpack-stream": "^4.0.3",
     "yargs": "^11.0.0"
+  },
+  "dependencies": {
+    "js-pinyin": "^0.1.9"
   }
 }
