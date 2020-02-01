@@ -13,7 +13,7 @@ import 'babel-polyfill';
 import './class/lesson12.1.js';
 
 //  pinyin.setOptions({checkPolyphone: false, charCase: 0});
- 
+
 /* console.log(pinyin.getFullChars('管理员'));  // GuanLiYuan
 console.log(pinyin.getFullChars('管理员').toLocaleLowerCase().slice(0,2));  // gu
 console.log(pinyin.getCamelChars('管理员'));  // GLY

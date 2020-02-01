@@ -1,6 +1,6 @@
 {
 	class Point {
-		constructor(x,y) {
+		constructor(x, y) {
 			this.x = x
 			this.y = y
 		}
@@ -21,27 +21,30 @@
 			this.x = value
 		}
 	}
+	Point.prototype.and = function () {
+		console.log(999999999999)
+	}
 	Object.assign(Point.prototype, {
 		he() {
 			console.log(this.y)
 		}
 	})
-	let aa = new Point('HH','KK')
+	let aa = new Point('HH', 'KK')
 	/* aa.he()  // KK
 	aa.para() // HH
 	console.log(aa.y) */ // KK
 	/* console.log(aa.longName)  // 安乐HH
 	aa.longName = '解决'
-	console.log(aa.longName) */  // 安乐解决
-	
+	console.log(aa.longName) */ // 安乐解决
+
 	// 构造函数的prototype属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。
 	// console.log(aa.para === Point.prototype.para)  // true
 	// prototype对象的constructor属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
 	// console.log(Point.prototype.constructor === Point)  // true
-	
-	// console.log(Object.keys(Point.prototype))  // ["he"]
-	// console.log(Object.getOwnPropertyNames(Point.prototype))  // (4) ["constructor", "para", "ha", "he"]
-	
+
+	console.log(Object.keys(Point.prototype)) // (2) ["and", "he"]
+	console.log(Object.getOwnPropertyNames(Point.prototype)) // (6) ["constructor", "para", "ha", "longName", "and", "he"]
+
 	// console.log(Point.jt())
 	// 如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
 	// console.log(aa.jt())  // Uncaught TypeError: aa.jt is not a function
@@ -51,7 +54,7 @@
 {
 
 	class Tea {
-		constructor (x,y) {
+		constructor(x, y) {
 			this.x = x
 			this.y = y
 		}
@@ -60,8 +63,8 @@
 			console.log(this.x)
 		}
 		static ha() {
-			console.log('this.y')  // this.y
-			console.log(this.y)  // undefined
+			console.log('this.y') // this.y
+			console.log(this.y) // undefined
 		}
 		static he() {
 			this.ha()
@@ -80,15 +83,15 @@
 
 
 {
-
+	console.log('--------------------------------------------------');
 	class Point {
-		constructor(age,name) {
+		constructor(age, name) {
 			this.age = age
 			this.name = name
-			this.func = function() {
+			this.func = function () {
 				console.log(99)
 			}
-			this.method = function() {
+			this.method = function () {
 				console.log(645)
 			}
 		}
@@ -107,61 +110,57 @@
 			console.log('kk空')
 		}
 	}
-// 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
-// super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
-// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
-// 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
+	// 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+	// super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
+	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+	// 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
 	class aPoint extends Point {
-		constructor(age,name,color) {
-			super(age,name)
+		constructor(age, name, color) {
+			super(age, name)
 			this.color = color
 		}
 		haha() {
-			super.method()
+			// super.method()
 			super.func()
 		}
 		static hehe() {
 			super.func()
 		}
 	}
-	let b = new aPoint(12,'anle','red')
-	console.log(b.age)  // 12
-	b.haha()  // method
-	aPoint.jing()  // jing-oo
+	let b = new aPoint(12, 'anle', 'red')
+	// console.log(b.age) // 12
+	b.haha() // method
+	aPoint.jing() // jing-oo
 	aPoint.hehe(); // kk空
 }
-console.log('--------------------------------------------------')
-{
+console.log('--------------------------------------------------'); {
 	class BaseModel {
-	  constructor(data, message) {
-		if (typeof data === 'string') {
-		  this.message = data
-		  data = null
-		  message = null
+		constructor(data, message) {
+			if (typeof data === 'string') {
+				this.message = data
+				data = null
+				message = null
+			}
+			if (data) {
+				// console.log(data);
+				this.data = data
+			}
+			if (message) {
+				// console.log(message);
+				this.message = message
+			}
 		}
-		if (data) {
-			// console.log(data);
-			this.data = data
+		haha() {
+			console.log(this.data)
+			console.log(this.message)
 		}
-		if (message) {
-			// console.log(message);
-			this.message = message
-		}
-	  }
-	  haha() {
-		  console.log(this.data)
-		  console.log(this.message)
-	  }
 	}
-	let aa = new BaseModel({hh: '就就开票'});
+	let aa = new BaseModel({
+		hh: '就就开票'
+	});
 	console.log(aa.data)
-	
-	
-	
-	
+
+
+
+
 }
-
-
-
-
-

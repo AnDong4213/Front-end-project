@@ -10067,6 +10067,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		return Point;
 	}();
 
+	Point.prototype.and = function () {
+		console.log(999999999999);
+	};
 	Object.assign(Point.prototype, {
 		he: function he() {
 			console.log(this.y);
@@ -10085,8 +10088,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	// prototype对象的constructor属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
 	// console.log(Point.prototype.constructor === Point)  // true
 
-	// console.log(Object.keys(Point.prototype))  // ["he"]
-	// console.log(Object.getOwnPropertyNames(Point.prototype))  // (4) ["constructor", "para", "ha", "he"]
+	console.log(Object.keys(Point.prototype)); // (2) ["and", "he"]
+	console.log(Object.getOwnPropertyNames(Point.prototype)); // (6) ["constructor", "para", "ha", "longName", "and", "he"]
 
 	// console.log(Point.jt())
 	// 如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
@@ -10135,6 +10138,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 }
 
 {
+	console.log('--------------------------------------------------');
+
 	var _Point = function () {
 		function _Point(age, name) {
 			_classCallCheck(this, _Point);
@@ -10196,7 +10201,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		_createClass(aPoint, [{
 			key: 'haha',
 			value: function haha() {
-				_get(aPoint.prototype.__proto__ || Object.getPrototypeOf(aPoint.prototype), 'method', this).call(this);
+				// super.method()
 				_get(aPoint.prototype.__proto__ || Object.getPrototypeOf(aPoint.prototype), 'func', this).call(this);
 			}
 		}], [{
@@ -10210,13 +10215,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	}(_Point);
 
 	var b = new aPoint(12, 'anle', 'red');
-	console.log(b.age); // 12
+	// console.log(b.age) // 12
 	b.haha(); // method
 	aPoint.jing(); // jing-oo
 	aPoint.hehe(); // kk空
 }
-console.log('--------------------------------------------------');
-{
+console.log('--------------------------------------------------');{
 	var BaseModel = function () {
 		function BaseModel(data, message) {
 			_classCallCheck(this, BaseModel);
@@ -10247,7 +10251,9 @@ console.log('--------------------------------------------------');
 		return BaseModel;
 	}();
 
-	var _aa = new BaseModel({ hh: '就就开票' });
+	var _aa = new BaseModel({
+		hh: '就就开票'
+	});
 	console.log(_aa.data);
 }
 
