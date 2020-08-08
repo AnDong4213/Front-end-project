@@ -69,7 +69,7 @@
 		yield new Promise((resolve,reject) => {
 			setTimeout(() => {
 				resolve({code: 200})
-			},200)
+			}, 5000)
 		})
 	};
 	let pull = function() {

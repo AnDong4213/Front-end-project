@@ -10018,243 +10018,152 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+/* {
+	let tell = function* (){
+		yield 'a'		
+		yield 'b'
+		return 'c'
+	}
+	let k = tell();    
+	// console.log(k)  //  Generator {_invoke: ƒ}   function后有一个星号(*)...
+	
+	console.log(k.next().value)
+	console.log(k.next())   //  {value: "b", done: false}
+	console.log(k.next().value)  //  c
+	console.log(k.next())
+} */
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* {
+	let obj = {}, a = [{a:'a'},{d:'d'}],b = {b:'b'}, c = {c:'c'}
+	obj[Symbol.iterator] = function* () {
+		yield a;		
+		yield b;
+		yield c;
+	}
+	for (let value of obj) {
+		console.log(value)
+	}
+} */
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/* {
+	let state = function* (){
+		while(1) {
+			yield 'A';		
+			yield 'B';
+			yield 'C';
+		}
+	}
+	let status = state()
+	console.log(status.next())
+	console.log(status.next())
+	console.log(status.next())
+	console.log(status.next())
+	console.log(status.next())
+} */
 
 {
-	var Point = function () {
-		function Point(x, y) {
-			_classCallCheck(this, Point);
+	/* let draw = function (count) {
+ 	console.log(`剩余${count}次`);
+ }
+ let residue = function* (count){
+ 	while (count>0) {
+ 		count--;
+ 		yield draw(count)
+ 	}
+ }
+ let stat = residue(5), btn = document.createElement('button')
+ btn.id = 'start'
+ btn.textContent = '抽奖'
+ btn.style.color = '#000'
+ btn.style.border = 'none'
+ btn.style.backgroundColor = 'pink'
+ document.body.appendChild(btn)
+ document.getElementById('start').addEventListener('click',function(){
+ 	stat.next()
+ },false) */
+}
 
-			this.x = x;
-			this.y = y;
-		}
+{
+	// 长轮询。。。
+	var ajax = /*#__PURE__*/regeneratorRuntime.mark(function ajax() {
+		return regeneratorRuntime.wrap(function ajax$(_context) {
+			while (1) {
+				switch (_context.prev = _context.next) {
+					case 0:
+						_context.next = 2;
+						return new Promise(function (resolve, reject) {
+							setTimeout(function () {
+								resolve({ code: 200 });
+							}, 5000);
+						});
 
-		_createClass(Point, [{
-			key: 'para',
-			value: function para() {
-				console.log(this.x);
+					case 2:
+					case 'end':
+						return _context.stop();
+				}
 			}
-		}, {
-			key: 'ha',
-			value: function ha() {
-				console.log(this.y);
+		}, ajax, this);
+	});
+	var pull = function pull() {
+		var generator = ajax(),
+		    step = generator.next();
+		step.value.then(function (d) {
+			if (d.code !== 200) {
+				setTimeout(function () {
+					console.info('wait');
+					pull();
+				}, 1000);
+			} else {
+				console.info(d);
 			}
-			// Class的静态方法  类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
-
-		}, {
-			key: 'longName',
-			get: function get() {
-				return '安乐' + this.x;
-			},
-			set: function set(value) {
-				this.x = value;
-			}
-		}], [{
-			key: 'jt',
-			value: function jt() {
-				return 'Hello';
-			}
-		}]);
-
-		return Point;
-	}();
-
-	Point.prototype.and = function () {
-		console.log(999999999999);
+		});
 	};
-	Object.assign(Point.prototype, {
-		he: function he() {
-			console.log(this.y);
-		}
-	});
-	var aa = new Point('HH', 'KK');
-	/* aa.he()  // KK
- aa.para() // HH
- console.log(aa.y) */ // KK
-	/* console.log(aa.longName)  // 安乐HH
- aa.longName = '解决'
- console.log(aa.longName) */ // 安乐解决
-
-	// 构造函数的prototype属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。
-	// console.log(aa.para === Point.prototype.para)  // true
-	// prototype对象的constructor属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
-	// console.log(Point.prototype.constructor === Point)  // true
-
-	console.log(Object.keys(Point.prototype)); // (2) ["and", "he"]
-	console.log(Object.getOwnPropertyNames(Point.prototype)); // (6) ["constructor", "para", "ha", "longName", "and", "he"]
-
-	// console.log(Point.jt())
-	// 如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
-	// console.log(aa.jt())  // Uncaught TypeError: aa.jt is not a function
+	pull();
 }
 
 {
-	var Tea = function () {
-		function Tea(x, y) {
-			_classCallCheck(this, Tea);
 
-			this.x = x;
-			this.y = y;
-		}
-		// 还可以看出，静态方法可以与非静态方法重名。
+	var _ajax = /*#__PURE__*/regeneratorRuntime.mark(function _ajax() {
+		var rs;
+		return regeneratorRuntime.wrap(function _ajax$(_context2) {
+			while (1) {
+				switch (_context2.prev = _context2.next) {
+					case 0:
+						_context2.next = 2;
+						return new Promise(function (resolve, reject) {
+							setTimeout(function () {
+								resolve({ code: 2019 });
+							}, 200);
+						});
 
+					case 2:
+						rs = _context2.sent;
 
-		_createClass(Tea, [{
-			key: 'ha',
-			value: function ha() {
-				console.log(this.x);
+						console.log(rs);
+
+					case 4:
+					case 'end':
+						return _context2.stop();
+				}
 			}
-		}], [{
-			key: 'ha',
-			value: function ha() {
-				console.log('this.y'); // this.y
-				console.log(this.y); // undefined
-			}
-		}, {
-			key: 'he',
-			value: function he() {
-				this.ha();
-			}
-		}]);
-
-		return Tea;
-	}();
-	// 为Tea类定义了一个静态属性yy
-	// 目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
-	/* Tea.yy = 'uu'
- let tea = new Tea('MM','NN')
- tea.ha()
- Tea.he() */
-	// 父类的静态方法，可以被子类继承。
-	// 静态方法也是可以从super对象上调用的。
-}
-
-{
-	console.log('--------------------------------------------------');
-
-	var _Point = function () {
-		function _Point(age, name) {
-			_classCallCheck(this, _Point);
-
-			this.age = age;
-			this.name = name;
-			this.func = function () {
-				console.log(99);
-			};
-			this.method = function () {
-				console.log(645);
-			};
-		}
-
-		_createClass(_Point, [{
-			key: 'method',
-			value: function method() {
-				console.log('method');
-			}
-		}, {
-			key: 'func',
-			value: function func() {
-				console.log('噢噢噢');
-				this.func();
-				this.method(); // 实例上有就调用实例，没有就调用原型上的...
-			}
-		}], [{
-			key: 'jing',
-			value: function jing() {
-				console.log('jing-oo');
-			}
-		}, {
-			key: 'func',
-			value: function func() {
-				console.log('kk空');
-			}
-		}]);
-
-		return _Point;
-	}();
-	// 子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
-	// super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。
-	// 第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
-	// 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
-
-
-	var aPoint = function (_Point2) {
-		_inherits(aPoint, _Point2);
-
-		function aPoint(age, name, color) {
-			_classCallCheck(this, aPoint);
-
-			var _this = _possibleConstructorReturn(this, (aPoint.__proto__ || Object.getPrototypeOf(aPoint)).call(this, age, name));
-
-			_this.color = color;
-			return _this;
-		}
-
-		_createClass(aPoint, [{
-			key: 'haha',
-			value: function haha() {
-				// super.method()
-				_get(aPoint.prototype.__proto__ || Object.getPrototypeOf(aPoint.prototype), 'func', this).call(this);
-			}
-		}], [{
-			key: 'hehe',
-			value: function hehe() {
-				_get(aPoint.__proto__ || Object.getPrototypeOf(aPoint), 'func', this).call(this);
-			}
-		}]);
-
-		return aPoint;
-	}(_Point);
-
-	var b = new aPoint(12, 'anle', 'red');
-	// console.log(b.age) // 12
-	b.haha(); // method
-	aPoint.jing(); // jing-oo
-	aPoint.hehe(); // kk空
-}
-console.log('--------------------------------------------------');{
-	var BaseModel = function () {
-		function BaseModel(data, message) {
-			_classCallCheck(this, BaseModel);
-
-			if (typeof data === 'string') {
-				this.message = data;
-				data = null;
-				message = null;
-			}
-			if (data) {
-				// console.log(data);
-				this.data = data;
-			}
-			if (message) {
-				// console.log(message);
-				this.message = message;
-			}
-		}
-
-		_createClass(BaseModel, [{
-			key: 'haha',
-			value: function haha() {
-				console.log(this.data);
-				console.log(this.message);
-			}
-		}]);
-
-		return BaseModel;
-	}();
-
-	var _aa = new BaseModel({
-		hh: '就就开票'
+		}, _ajax, this);
 	});
-	console.log(_aa.data);
+	_ajax();
+	console.log(_ajax());
+	/* let pull = function() {
+ 	let generator = ajax(), step = generator.next();
+ 	step.value.then((d) => {
+ 		if (d.code !== 200) {
+ 			setTimeout(() => {
+ 				console.info('wait')
+ 				pull()
+ 			},1000)
+ 		} else {
+ 			console.info(d)
+ 		}
+ 	})
+ }
+ pull() */
 }
 
 /***/ })
