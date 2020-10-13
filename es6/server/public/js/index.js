@@ -423,7 +423,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 "use strict";
 
 
-var core = module.exports = { version: '2.6.5' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
@@ -3265,6 +3265,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 // 19.1.2.1 Object.assign(target, source, ...)
 
+var DESCRIPTORS = __webpack_require__(7);
 var getKeys = __webpack_require__(34);
 var gOPS = __webpack_require__(53);
 var pIE = __webpack_require__(49);
@@ -3298,7 +3299,8 @@ module.exports = !$assign || __webpack_require__(3)(function () {
     var j = 0;
     var key;
     while (length > j) {
-      if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+      key = keys[j++];
+      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
     }
   }return T;
 } : $assign;
@@ -4115,6 +4117,7 @@ module.exports = function (that, maxLength, fillString, left) {
 "use strict";
 
 
+var DESCRIPTORS = __webpack_require__(7);
 var getKeys = __webpack_require__(34);
 var toIObject = __webpack_require__(15);
 var isEnum = __webpack_require__(49).f;
@@ -4127,10 +4130,12 @@ module.exports = function (isEntries) {
     var result = [];
     var key;
     while (length > i) {
-      if (isEnum.call(O, key = keys[i++])) {
+      key = keys[i++];
+      if (!DESCRIPTORS || isEnum.call(O, key)) {
         result.push(isEntries ? [key, O[key]] : O[key]);
       }
-    }return result;
+    }
+    return result;
   };
 };
 
@@ -4476,12 +4481,14 @@ var enumKeys = __webpack_require__(136);
 var isArray = __webpack_require__(54);
 var anObject = __webpack_require__(1);
 var isObject = __webpack_require__(4);
+var toObject = __webpack_require__(9);
 var toIObject = __webpack_require__(15);
 var toPrimitive = __webpack_require__(23);
 var createDesc = __webpack_require__(32);
 var _create = __webpack_require__(36);
 var gOPNExt = __webpack_require__(98);
 var $GOPD = __webpack_require__(16);
+var $GOPS = __webpack_require__(53);
 var $DP = __webpack_require__(8);
 var $keys = __webpack_require__(34);
 var gOPD = $GOPD.f;
@@ -4498,7 +4505,7 @@ var SymbolRegistry = shared('symbol-registry');
 var AllSymbols = shared('symbols');
 var OPSymbols = shared('op-symbols');
 var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function';
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
 var QObject = global.QObject;
 // Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
 var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
@@ -4611,7 +4618,7 @@ if (!USE_NATIVE) {
   $DP.f = $defineProperty;
   __webpack_require__(37).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(49).f = $propertyIsEnumerable;
-  __webpack_require__(53).f = $getOwnPropertySymbols;
+  $GOPS.f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !__webpack_require__(29)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
@@ -4663,6 +4670,18 @@ $export($export.S + $export.F * !USE_NATIVE, 'Object', {
   getOwnPropertyNames: $getOwnPropertyNames,
   // 19.1.2.8 Object.getOwnPropertySymbols(O)
   getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () {
+  $GOPS.f(1);
+});
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
 });
 
 // 24.3.2 JSON.stringify(value [, replacer [, space]])
@@ -10018,153 +10037,199 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-/* {
-	let tell = function* (){
-		yield 'a'		
-		yield 'b'
-		return 'c'
-	}
-	let k = tell();    
-	// console.log(k)  //  Generator {_invoke: ƒ}   function后有一个星号(*)...
-	
-	console.log(k.next().value)
-	console.log(k.next())   //  {value: "b", done: false}
-	console.log(k.next().value)  //  c
-	console.log(k.next())
-} */
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-/* {
-	let obj = {}, a = [{a:'a'},{d:'d'}],b = {b:'b'}, c = {c:'c'}
-	obj[Symbol.iterator] = function* () {
-		yield a;		
-		yield b;
-		yield c;
-	}
-	for (let value of obj) {
-		console.log(value)
-	}
-} */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/* {
-	let state = function* (){
-		while(1) {
-			yield 'A';		
-			yield 'B';
-			yield 'C';
-		}
-	}
-	let status = state()
-	console.log(status.next())
-	console.log(status.next())
-	console.log(status.next())
-	console.log(status.next())
-	console.log(status.next())
-} */
+var _dec, _class, _dec2, _class2, _dec3, _class3, _desc, _value, _class4, _dec4, _dec5, _desc2, _value2, _class5;
 
-{
-	/* let draw = function (count) {
- 	console.log(`剩余${count}次`);
- }
- let residue = function* (count){
- 	while (count>0) {
- 		count--;
- 		yield draw(count)
- 	}
- }
- let stat = residue(5), btn = document.createElement('button')
- btn.id = 'start'
- btn.textContent = '抽奖'
- btn.style.color = '#000'
- btn.style.border = 'none'
- btn.style.backgroundColor = 'pink'
- document.body.appendChild(btn)
- document.getElementById('start').addEventListener('click',function(){
- 	stat.next()
- },false) */
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+  var desc = {};
+  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+    desc[key] = descriptor[key];
+  });
+  desc.enumerable = !!desc.enumerable;
+  desc.configurable = !!desc.configurable;
+
+  if ('value' in desc || desc.initializer) {
+    desc.writable = true;
+  }
+
+  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+    return decorator(target, property, desc) || desc;
+  }, desc);
+
+  if (context && desc.initializer !== void 0) {
+    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+    desc.initializer = undefined;
+  }
+
+  if (desc.initializer === void 0) {
+    Object['define' + 'Property'](target, property, desc);
+    desc = null;
+  }
+
+  return desc;
 }
 
-{
-	// 长轮询。。。
-	var ajax = /*#__PURE__*/regeneratorRuntime.mark(function ajax() {
-		return regeneratorRuntime.wrap(function ajax$(_context) {
-			while (1) {
-				switch (_context.prev = _context.next) {
-					case 0:
-						_context.next = 2;
-						return new Promise(function (resolve, reject) {
-							setTimeout(function () {
-								resolve({ code: 200 });
-							}, 5000);
-						});
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-					case 2:
-					case 'end':
-						return _context.stop();
-				}
-			}
-		}, ajax, this);
-	});
-	var pull = function pull() {
-		var generator = ajax(),
-		    step = generator.next();
-		step.value.then(function (d) {
-			if (d.code !== 200) {
-				setTimeout(function () {
-					console.info('wait');
-					pull();
-				}, 1000);
-			} else {
-				console.info(d);
-			}
-		});
-	};
-	pull();
+var obj = {
+  a: 1,
+  c: 99
+};
+Object.defineProperty(obj, "b", {
+  value: "bbb",
+  enumerable: false
+});
+Object.defineProperty(obj, "c", {
+  enumerable: false
+});
+console.log(obj);
+console.log(Object.keys(obj)); // ["a"]
+console.log(obj.hasOwnProperty("b")); // true
+console.log("----------------------------------------");
+
+// 装饰器是一个对类进行处理的函数，装饰器的第一个参数就是所要装饰的目标类
+/* function testable(target) {
+  target.isTestable = true;
 }
 
-{
+@testable
+class MyTestableClass {
+  constructor(name) {
+    this.name1 = name;
+  }
 
-	var _ajax = /*#__PURE__*/regeneratorRuntime.mark(function _ajax() {
-		var rs;
-		return regeneratorRuntime.wrap(function _ajax$(_context2) {
-			while (1) {
-				switch (_context2.prev = _context2.next) {
-					case 0:
-						_context2.next = 2;
-						return new Promise(function (resolve, reject) {
-							setTimeout(function () {
-								resolve({ code: 2019 });
-							}, 200);
-						});
+  getName2() {
+    return {
+      name1: this.name1,
+      name: this.getName3()
+    };
+  }
+  getName3() {
+    return this.name;
+  }
 
-					case 2:
-						rs = _context2.sent;
-
-						console.log(rs);
-
-					case 4:
-					case 'end':
-						return _context2.stop();
-				}
-			}
-		}, _ajax, this);
-	});
-	_ajax();
-	console.log(_ajax());
-	/* let pull = function() {
- 	let generator = ajax(), step = generator.next();
- 	step.value.then((d) => {
- 		if (d.code !== 200) {
- 			setTimeout(() => {
- 				console.info('wait')
- 				pull()
- 			},1000)
- 		} else {
- 			console.info(d)
- 		}
- 	})
- }
- pull() */
+  static getName1() {
+    return {
+      name1: this.name1,
+      name: this.name
+      // name2: this.getName2()  // 静态方法里不能调用实例方法
+    };
+  }
 }
+
+console.log(MyTestableClass.isTestable);
+console.log(new MyTestableClass("YT").name1);
+console.log(MyTestableClass.getName1()); // {name1: undefined, name: "MyTestableClass"}
+console.log(new MyTestableClass("TT").getName2()); // {name1: "TT", name: undefined}
+ */
+
+// 如果觉得一个参数不够用，可以在装饰器外面再封装一层函数。
+function testable(isTestable) {
+  return function (target) {
+    target.isTestable = isTestable;
+  };
+}
+var MyTestableClass = (_dec = testable(true), _dec(_class = function MyTestableClass() {
+  _classCallCheck(this, MyTestableClass);
+}) || _class);
+
+console.log(MyTestableClass.isTestable);
+
+var MyClass = exports.MyClass = (_dec2 = testable(false), _dec2(_class2 = function MyClass() {
+  _classCallCheck(this, MyClass);
+
+  this.isTestable = 79879;
+}) || _class2);
+
+console.log(MyClass.isTestable);
+console.log(new MyClass().isTestable);
+
+// 装饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，装饰器能在编译阶段运行代码。也就是说，装饰器本质就是编译时执行的函数。
+// 添加实例属性，可以通过目标类的 prototype 对象操作。
+function mixins() {
+  for (var _len = arguments.length, list = Array(_len), _key = 0; _key < _len; _key++) {
+    list[_key] = arguments[_key];
+  }
+
+  return function (target) {
+    Object.assign.apply(Object, [target.prototype].concat(list));
+  };
+}
+
+var Foo = {
+  foo: function foo(a) {
+    return a;
+  }
+};
+var MyClass2 = (_dec3 = mixins(Foo), _dec3(_class3 = function MyClass2() {
+  /* this.foo = function (a) {
+    return a + "__";
+  }; */
+
+  _classCallCheck(this, MyClass2);
+}) || _class3);
+
+
+var aa = new MyClass2();
+console.log(aa.foo("99"));
+
+console.log("--------------------------------------------------------");
+// 方法的装饰，装饰器不仅可以装饰类，还可以装饰类的属性。
+function readonly(target, name, descriptor) {
+  descriptor.writable = false;
+}
+var Person = (_class4 = function () {
+  function Person() {
+    _classCallCheck(this, Person);
+
+    this.first = "";
+    this.last = "";
+  }
+
+  _createClass(Person, [{
+    key: "name",
+    value: function name() {
+      return this.first + " " + this.last;
+    }
+  }]);
+
+  return Person;
+}(), (_applyDecoratedDescriptor(_class4.prototype, "name", [readonly], Object.getOwnPropertyDescriptor(_class4.prototype, "name"), _class4.prototype)), _class4);
+// readonly(Person.prototype, "name", descriptor);
+
+// 修饰器执行顺序，由内向外执行
+
+var Example = (_dec4 = logMethod(1), _dec5 = logMethod(2), (_class5 = function () {
+  function Example() {
+    _classCallCheck(this, Example);
+  }
+
+  _createClass(Example, [{
+    key: "sum",
+    value: function sum(a, b) {
+      return a + b;
+    }
+  }]);
+
+  return Example;
+}(), (_applyDecoratedDescriptor(_class5.prototype, "sum", [_dec4, _dec5], Object.getOwnPropertyDescriptor(_class5.prototype, "sum"), _class5.prototype)), _class5));
+
+
+function logMethod(id) {
+  console.log("evaluated logMethod" + id);
+
+  return function (target, name, desctiptor) {
+    return console.log("excute logMethod+" + id);
+  };
+}
+
+var hh = new Example();
+console.log(hh.sum(1, 3));
 
 /***/ })
 /******/ ]);

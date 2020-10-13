@@ -7,10 +7,10 @@
 let test = new Test()
 document.body.innerHTML = test.a*/
 
-import 'babel-polyfill';
-// import {createSong} from './class/lesson17.2.js';
+import "babel-polyfill";
+// import {createSong} from './class/lesson17.2.js';  decorator
 // import pinyin from 'js-pinyin'
-import './class/lesson15.js';
+import "./class/decorator.js";
 
 //  pinyin.setOptions({checkPolyphone: false, charCase: 0});
 
@@ -33,7 +33,6 @@ lesson.test() */
 /* import lesson1 from './class/lesson17.js'
 console.log(lesson1.A)
 lesson1.test() */
-
 
 /* let haha = {
 	songid: 'QQ',
