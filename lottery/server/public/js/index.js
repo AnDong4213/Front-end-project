@@ -4211,7 +4211,11 @@ module.exports = __webpack_require__(131);
 
 __webpack_require__(132);
 
-__webpack_require__(335);
+var _lottery = __webpack_require__(335);
+
+var _lottery2 = _interopRequireDefault(_lottery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 132 */
@@ -10042,7 +10046,41 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-console.log(99);
+__webpack_require__(336);
+
+__webpack_require__(337);
+
+__webpack_require__(338);
+
+__webpack_require__(339);
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /***/ })
 /******/ ]);
