@@ -10,7 +10,7 @@ document.body.innerHTML = test.a*/
 import "babel-polyfill";
 // import {createSong} from './class/lesson17.2.js';  decorator
 // import pinyin from 'js-pinyin'
-import "./class/decorator.js";
+import "./class/lesson15-3.js";
 
 //  pinyin.setOptions({checkPolyphone: false, charCase: 0});
 

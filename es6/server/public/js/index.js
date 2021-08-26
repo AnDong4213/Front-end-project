@@ -423,7 +423,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 "use strict";
 
 
-var core = module.exports = { version: '2.6.11' };
+var core = module.exports = { version: '2.6.12' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
@@ -1582,7 +1582,7 @@ var store = global[SHARED] || (global[SHARED] = {});
 })('versions', []).push({
   version: core.version,
   mode: __webpack_require__(29) ? 'pure' : 'global',
-  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
 
 /***/ }),
@@ -8037,8 +8037,13 @@ __webpack_require__(31)('flatten');
 
 var $export = __webpack_require__(0);
 var $at = __webpack_require__(55)(true);
+var $fails = __webpack_require__(3);
 
-$export($export.P, 'String', {
+var FORCED = $fails(function () {
+  return '𠮷'.at(0) !== '𠮷';
+});
+
+$export($export.P + $export.F * FORCED, 'String', {
   at: function at(pos) {
     return $at(this, pos);
   }
@@ -10036,200 +10041,6 @@ module.exports = function (regExp, replace) {
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _class, _dec2, _class2, _dec3, _class3, _desc, _value, _class4, _dec4, _dec5, _desc2, _value2, _class5;
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var obj = {
-  a: 1,
-  c: 99
-};
-Object.defineProperty(obj, "b", {
-  value: "bbb",
-  enumerable: false
-});
-Object.defineProperty(obj, "c", {
-  enumerable: false
-});
-console.log(obj);
-console.log(Object.keys(obj)); // ["a"]
-console.log(obj.hasOwnProperty("b")); // true
-console.log("----------------------------------------");
-
-// 装饰器是一个对类进行处理的函数，装饰器的第一个参数就是所要装饰的目标类
-/* function testable(target) {
-  target.isTestable = true;
-}
-
-@testable
-class MyTestableClass {
-  constructor(name) {
-    this.name1 = name;
-  }
-
-  getName2() {
-    return {
-      name1: this.name1,
-      name: this.getName3()
-    };
-  }
-  getName3() {
-    return this.name;
-  }
-
-  static getName1() {
-    return {
-      name1: this.name1,
-      name: this.name
-      // name2: this.getName2()  // 静态方法里不能调用实例方法
-    };
-  }
-}
-
-console.log(MyTestableClass.isTestable);
-console.log(new MyTestableClass("YT").name1);
-console.log(MyTestableClass.getName1()); // {name1: undefined, name: "MyTestableClass"}
-console.log(new MyTestableClass("TT").getName2()); // {name1: "TT", name: undefined}
- */
-
-// 如果觉得一个参数不够用，可以在装饰器外面再封装一层函数。
-function testable(isTestable) {
-  return function (target) {
-    target.isTestable = isTestable;
-  };
-}
-var MyTestableClass = (_dec = testable(true), _dec(_class = function MyTestableClass() {
-  _classCallCheck(this, MyTestableClass);
-}) || _class);
-
-console.log(MyTestableClass.isTestable);
-
-var MyClass = exports.MyClass = (_dec2 = testable(false), _dec2(_class2 = function MyClass() {
-  _classCallCheck(this, MyClass);
-
-  this.isTestable = 79879;
-}) || _class2);
-
-console.log(MyClass.isTestable);
-console.log(new MyClass().isTestable);
-
-// 装饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，装饰器能在编译阶段运行代码。也就是说，装饰器本质就是编译时执行的函数。
-// 添加实例属性，可以通过目标类的 prototype 对象操作。
-function mixins() {
-  for (var _len = arguments.length, list = Array(_len), _key = 0; _key < _len; _key++) {
-    list[_key] = arguments[_key];
-  }
-
-  return function (target) {
-    Object.assign.apply(Object, [target.prototype].concat(list));
-  };
-}
-
-var Foo = {
-  foo: function foo(a) {
-    return a;
-  }
-};
-var MyClass2 = (_dec3 = mixins(Foo), _dec3(_class3 = function MyClass2() {
-  /* this.foo = function (a) {
-    return a + "__";
-  }; */
-
-  _classCallCheck(this, MyClass2);
-}) || _class3);
-
-
-var aa = new MyClass2();
-console.log(aa.foo("99"));
-
-console.log("--------------------------------------------------------");
-// 方法的装饰，装饰器不仅可以装饰类，还可以装饰类的属性。
-function readonly(target, name, descriptor) {
-  descriptor.writable = false;
-}
-var Person = (_class4 = function () {
-  function Person() {
-    _classCallCheck(this, Person);
-
-    this.first = "";
-    this.last = "";
-  }
-
-  _createClass(Person, [{
-    key: "name",
-    value: function name() {
-      return this.first + " " + this.last;
-    }
-  }]);
-
-  return Person;
-}(), (_applyDecoratedDescriptor(_class4.prototype, "name", [readonly], Object.getOwnPropertyDescriptor(_class4.prototype, "name"), _class4.prototype)), _class4);
-// readonly(Person.prototype, "name", descriptor);
-
-// 修饰器执行顺序，由内向外执行
-
-var Example = (_dec4 = logMethod(1), _dec5 = logMethod(2), (_class5 = function () {
-  function Example() {
-    _classCallCheck(this, Example);
-  }
-
-  _createClass(Example, [{
-    key: "sum",
-    value: function sum(a, b) {
-      return a + b;
-    }
-  }]);
-
-  return Example;
-}(), (_applyDecoratedDescriptor(_class5.prototype, "sum", [_dec4, _dec5], Object.getOwnPropertyDescriptor(_class5.prototype, "sum"), _class5.prototype)), _class5));
-
-
-function logMethod(id) {
-  console.log("evaluated logMethod" + id);
-
-  return function (target, name, desctiptor) {
-    return console.log("excute logMethod+" + id);
-  };
-}
-
-var hh = new Example();
-console.log(hh.sum(1, 3));
 
 /***/ })
 /******/ ]);
